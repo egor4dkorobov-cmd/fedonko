@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MLN — мужская косметика для укладки</title>
+<meta name="description" content="MLN — воск, глина, солевой спрей и пудра для объёма. Мужская косметика для укладки волос.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@125,900&family=Oswald:wght@500;700&family=Manrope:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="loading">
+
+<!-- ===== Заставка при загрузке ===== -->
+<div class="loader" aria-hidden="true">
+  <svg class="loader-logo" viewBox="0 0 300 90">
+    <path d="M0.0 85.0 L2.6 85.0 L5.1 85.0 L7.6 85.0 L10.2 85.0 L12.7 85.0 L15.3 85.0 L17.8 85.0 L20.4 85.0 L20.4 77.5 L20.4 70.1 L20.4 62.6 L20.4 55.0 L20.4 47.5 L20.4 40.1 L20.4 32.6 L20.4 25.1 L23.9 32.6 L27.5 40.1 L31.1 47.5 L34.7 55.0 L38.3 62.6 L41.9 70.1 L45.4 77.5 L49.0 85.0 L51.1 85.0 L53.2 85.0 L55.3 85.0 L57.4 85.0 L59.4 85.0 L61.5 85.0 L63.6 85.0 L65.7 85.0 L69.3 77.5 L72.8 70.1 L76.4 62.6 L80.0 55.0 L83.6 47.5 L87.2 40.1 L90.8 32.6 L94.3 25.1 L94.3 32.6 L94.3 40.1 L94.3 47.5 L94.3 55.0 L94.3 62.6 L94.3 70.1 L94.3 77.5 L94.3 85.0 L96.9 85.0 L99.5 85.0 L102.0 85.0 L104.5 85.0 L107.1 85.0 L109.6 85.0 L112.2 85.0 L114.7 85.0 L114.7 75.0 L114.7 65.0 L114.7 55.0 L114.7 45.1 L114.7 35.0 L114.7 25.1 L114.7 15.0 L114.7 5.1 L111.2 5.1 L107.7 5.1 L104.2 5.1 L100.7 5.1 L97.3 5.1 L93.8 5.1 L90.3 5.1 L86.8 5.1 L83.1 12.7 L79.5 20.2 L75.8 27.8 L72.1 35.3 L68.5 43.0 L64.8 50.6 L61.2 58.1 L57.5 65.7 L53.8 58.1 L50.1 50.6 L46.4 43.0 L42.7 35.3 L39.0 27.8 L35.3 20.2 L31.6 12.7 L27.9 5.1 L24.4 5.1 L20.9 5.1 L17.5 5.1 L14.0 5.1 L10.5 5.1 L7.0 5.1 L3.5 5.1 L0.0 5.1ZM139.7 85.0 L146.4 85.0 L153.1 85.0 L159.9 85.0 L166.7 85.0 L173.4 85.0 L180.1 85.0 L186.9 85.0 L193.6 85.0 L193.6 83.2 L193.6 81.5 L193.6 79.7 L193.6 77.9 L193.6 76.1 L193.6 74.4 L193.6 72.6 L193.6 70.9 L189.4 70.9 L185.2 70.9 L181.0 70.9 L176.8 70.9 L172.6 70.9 L168.4 70.9 L164.2 70.9 L160.0 70.9 L160.0 62.7 L160.0 54.4 L160.0 46.2 L160.0 38.0 L160.0 29.8 L160.0 21.6 L160.0 13.3 L160.0 5.1 L157.5 5.1 L154.9 5.1 L152.4 5.1 L149.8 5.1 L147.3 5.1 L144.8 5.1 L142.2 5.1 L139.7 5.1ZM211.0 85.0 L213.5 85.0 L216.1 85.0 L218.6 85.0 L221.2 85.0 L223.7 85.0 L226.3 85.0 L228.8 85.0 L231.4 85.0 L231.4 77.8 L231.4 70.5 L231.4 63.2 L231.4 55.9 L231.4 48.7 L231.4 41.5 L231.4 34.2 L231.4 27.0 L237.1 34.2 L242.8 41.5 L248.6 48.7 L254.3 55.9 L260.0 63.2 L265.8 70.5 L271.5 77.8 L277.3 85.0 L280.1 85.0 L283.0 85.0 L285.8 85.0 L288.6 85.0 L291.5 85.0 L294.3 85.0 L297.2 85.0 L300.0 85.0 L300.0 75.0 L300.0 65.0 L300.0 55.0 L300.0 45.1 L300.0 35.0 L300.0 25.1 L300.0 15.0 L300.0 5.1 L297.4 5.1 L294.9 5.1 L292.4 5.1 L289.8 5.1 L287.3 5.1 L284.7 5.1 L282.2 5.1 L279.6 5.1 L279.6 12.4 L279.6 19.6 L279.6 27.0 L279.6 34.2 L279.6 41.5 L279.6 48.7 L279.6 56.0 L279.6 63.2 L274.0 56.0 L268.3 48.7 L262.6 41.5 L256.9 34.2 L251.2 27.0 L245.6 19.6 L239.8 12.4 L234.2 5.1 L231.3 5.1 L228.4 5.1 L225.5 5.1 L222.6 5.1 L219.7 5.1 L216.8 5.1 L213.9 5.1 L211.0 5.1Z" fill="none" stroke="#c9a45c" stroke-width="1.2"/>
+    <path class="loader-fill" d="M0.0 85.0 L2.6 85.0 L5.1 85.0 L7.6 85.0 L10.2 85.0 L12.7 85.0 L15.3 85.0 L17.8 85.0 L20.4 85.0 L20.4 77.5 L20.4 70.1 L20.4 62.6 L20.4 55.0 L20.4 47.5 L20.4 40.1 L20.4 32.6 L20.4 25.1 L23.9 32.6 L27.5 40.1 L31.1 47.5 L34.7 55.0 L38.3 62.6 L41.9 70.1 L45.4 77.5 L49.0 85.0 L51.1 85.0 L53.2 85.0 L55.3 85.0 L57.4 85.0 L59.4 85.0 L61.5 85.0 L63.6 85.0 L65.7 85.0 L69.3 77.5 L72.8 70.1 L76.4 62.6 L80.0 55.0 L83.6 47.5 L87.2 40.1 L90.8 32.6 L94.3 25.1 L94.3 32.6 L94.3 40.1 L94.3 47.5 L94.3 55.0 L94.3 62.6 L94.3 70.1 L94.3 77.5 L94.3 85.0 L96.9 85.0 L99.5 85.0 L102.0 85.0 L104.5 85.0 L107.1 85.0 L109.6 85.0 L112.2 85.0 L114.7 85.0 L114.7 75.0 L114.7 65.0 L114.7 55.0 L114.7 45.1 L114.7 35.0 L114.7 25.1 L114.7 15.0 L114.7 5.1 L111.2 5.1 L107.7 5.1 L104.2 5.1 L100.7 5.1 L97.3 5.1 L93.8 5.1 L90.3 5.1 L86.8 5.1 L83.1 12.7 L79.5 20.2 L75.8 27.8 L72.1 35.3 L68.5 43.0 L64.8 50.6 L61.2 58.1 L57.5 65.7 L53.8 58.1 L50.1 50.6 L46.4 43.0 L42.7 35.3 L39.0 27.8 L35.3 20.2 L31.6 12.7 L27.9 5.1 L24.4 5.1 L20.9 5.1 L17.5 5.1 L14.0 5.1 L10.5 5.1 L7.0 5.1 L3.5 5.1 L0.0 5.1ZM139.7 85.0 L146.4 85.0 L153.1 85.0 L159.9 85.0 L166.7 85.0 L173.4 85.0 L180.1 85.0 L186.9 85.0 L193.6 85.0 L193.6 83.2 L193.6 81.5 L193.6 79.7 L193.6 77.9 L193.6 76.1 L193.6 74.4 L193.6 72.6 L193.6 70.9 L189.4 70.9 L185.2 70.9 L181.0 70.9 L176.8 70.9 L172.6 70.9 L168.4 70.9 L164.2 70.9 L160.0 70.9 L160.0 62.7 L160.0 54.4 L160.0 46.2 L160.0 38.0 L160.0 29.8 L160.0 21.6 L160.0 13.3 L160.0 5.1 L157.5 5.1 L154.9 5.1 L152.4 5.1 L149.8 5.1 L147.3 5.1 L144.8 5.1 L142.2 5.1 L139.7 5.1ZM211.0 85.0 L213.5 85.0 L216.1 85.0 L218.6 85.0 L221.2 85.0 L223.7 85.0 L226.3 85.0 L228.8 85.0 L231.4 85.0 L231.4 77.8 L231.4 70.5 L231.4 63.2 L231.4 55.9 L231.4 48.7 L231.4 41.5 L231.4 34.2 L231.4 27.0 L237.1 34.2 L242.8 41.5 L248.6 48.7 L254.3 55.9 L260.0 63.2 L265.8 70.5 L271.5 77.8 L277.3 85.0 L280.1 85.0 L283.0 85.0 L285.8 85.0 L288.6 85.0 L291.5 85.0 L294.3 85.0 L297.2 85.0 L300.0 85.0 L300.0 75.0 L300.0 65.0 L300.0 55.0 L300.0 45.1 L300.0 35.0 L300.0 25.1 L300.0 15.0 L300.0 5.1 L297.4 5.1 L294.9 5.1 L292.4 5.1 L289.8 5.1 L287.3 5.1 L284.7 5.1 L282.2 5.1 L279.6 5.1 L279.6 12.4 L279.6 19.6 L279.6 27.0 L279.6 34.2 L279.6 41.5 L279.6 48.7 L279.6 56.0 L279.6 63.2 L274.0 56.0 L268.3 48.7 L262.6 41.5 L256.9 34.2 L251.2 27.0 L245.6 19.6 L239.8 12.4 L234.2 5.1 L231.3 5.1 L228.4 5.1 L225.5 5.1 L222.6 5.1 L219.7 5.1 L216.8 5.1 L213.9 5.1 L211.0 5.1Z" fill="url(#gold)"/>
+  </svg>
+  <div class="loader-line"><i></i></div>
+</div>
+
+<!-- ===== Свой курсор ===== -->
+<div class="cursor-dot" aria-hidden="true"></div>
+<div class="cursor-ring" aria-hidden="true"></div>
+
+<!-- ===== Цвета и свет для упаковки ===== -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f3dda6"/>
+      <stop offset=".5" stop-color="#c9a45c"/>
+      <stop offset="1" stop-color="#8f6f33"/>
+    </linearGradient>
+    <!-- тень цилиндра: тёмные края, светлее к центру -->
+    <linearGradient id="cylShade" x1="0" x2="1">
+      <stop offset="0" stop-color="#000" stop-opacity=".78"/>
+      <stop offset=".07" stop-color="#000" stop-opacity=".42"/>
+      <stop offset=".2" stop-color="#000" stop-opacity="0"/>
+      <stop offset=".55" stop-color="#000" stop-opacity="0"/>
+      <stop offset=".8" stop-color="#000" stop-opacity=".28"/>
+      <stop offset=".92" stop-color="#000" stop-opacity=".55"/>
+      <stop offset=".955" stop-color="#fff" stop-opacity=".07"/>
+      <stop offset="1" stop-color="#000" stop-opacity=".8"/>
+    </linearGradient>
+    <!-- блик от света слева -->
+    <linearGradient id="spec" x1="0" x2="1">
+      <stop offset=".12" stop-color="#fff" stop-opacity="0"/>
+      <stop offset=".2" stop-color="#fff" stop-opacity=".22"/>
+      <stop offset=".225" stop-color="#fff" stop-opacity=".38"/>
+      <stop offset=".26" stop-color="#fff" stop-opacity=".1"/>
+      <stop offset=".34" stop-color="#fff" stop-opacity="0"/>
+      <stop offset=".7" stop-color="#fff" stop-opacity="0"/>
+      <stop offset=".76" stop-color="#fff" stop-opacity=".06"/>
+      <stop offset=".82" stop-color="#fff" stop-opacity="0"/>
+    </linearGradient>
+    <!-- верх крышки -->
+    <radialGradient id="lidTop" cx=".38" cy=".3" r=".8">
+      <stop offset="0" stop-color="#3b3b3f"/>
+      <stop offset=".5" stop-color="#1c1c1e"/>
+      <stop offset="1" stop-color="#0a0a0b"/>
+    </radialGradient>
+    <linearGradient id="rim" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fff" stop-opacity=".02"/>
+      <stop offset=".75" stop-color="#fff" stop-opacity=".02"/>
+      <stop offset="1" stop-color="#fff" stop-opacity=".35"/>
+    </linearGradient>
+    <linearGradient id="graphiteTop" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#c3c5c9"/>
+      <stop offset="1" stop-color="#8b8e93"/>
+    </linearGradient>
+    <radialGradient id="waxIn" cx=".42" cy=".4" r=".75">
+      <stop offset="0" stop-color="#f4dfa8"/>
+      <stop offset=".55" stop-color="#c9a45c"/>
+      <stop offset="1" stop-color="#7a5a25"/>
+    </radialGradient>
+    <radialGradient id="floorShadow">
+      <stop offset="0" stop-color="#000" stop-opacity=".85"/>
+      <stop offset=".6" stop-color="#000" stop-opacity=".35"/>
+      <stop offset="1" stop-color="#000" stop-opacity="0"/>
+    </radialGradient>
+    <!-- матовая зернистость поверхности -->
+    <filter id="grain" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="1.1" numOctaves="2" seed="4" result="n"/>
+      <feColorMatrix in="n" type="matrix" values="0 0 0 0 .5  0 0 0 0 .5  0 0 0 0 .5  0 0 0 .14 0" result="g"/>
+      <feComposite in="g" in2="SourceGraphic" operator="in" result="gi"/>
+      <feMerge><feMergeNode in="SourceGraphic"/><feMergeNode in="gi"/></feMerge>
+    </filter>
+  </defs>
+</svg>
+
+<!-- ===== 1. Шапка ===== -->
+<header class="header">
+  <a href="#top" class="logo">MLN</a>
+  <nav class="nav">
+    <a href="#products">Продукция</a>
+    <a href="#quiz">Подбор</a>
+    <a href="#bundle">Набор</a>
+    <a href="#how">Как использовать</a>
+    <a href="#reviews">Отзывы</a>
+  </nav>
+  <button class="cart-btn" aria-label="Открыть корзину">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h14l-1.2 12H6.2L5 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+    <span class="cart-count">0</span>
+  </button>
+</header>
+
+<main id="top">
+
+<!-- ===== 2. Главный экран ===== -->
+<section class="hero">
+  <!-- Фон: камни + золотое свечение -->
+  <div class="hero-bg" aria-hidden="true">
+    <div class="rocks rocks-side" data-depth=".3" data-scroll=".45"></div>
+    <div class="hero-glow" data-depth=".5" data-scroll=".35"></div>
+    <div class="rocks rocks-main" data-depth=".7" data-scroll=".3"></div>
+    <div class="hero-vignette"></div>
+  </div>
+  <canvas class="powder" aria-hidden="true"></canvas>
+  <div class="hero-inner">
+    <div class="hero-text">
+      <p class="eyebrow">Мужская косметика для укладки</p>
+      <h1 class="hero-title">MLN</h1>
+      <p class="hero-slogan">Объём, который держится весь день</p>
+      <a href="#products" class="btn shine">Смотреть продукцию</a>
+    </div>
+    <div class="hero-art" aria-hidden="true">
+      <svg class="pack pack-powder" data-depth="1.1" data-scroll="-.12" viewBox="0 0 120 380"><use href="#pk-powder"/></svg>
+      <svg class="pack pack-jar" data-depth="1.6" data-scroll="-.2" viewBox="0 0 300 220"><use href="#pk-jar-wax"/></svg>
+      <svg class="pack pack-spray" data-depth="1.3" data-scroll="-.16" viewBox="0 0 170 380"><use href="#pk-spray"/></svg>
+    </div>
+  </div>
+  <a href="#about" class="scroll-hint" aria-label="Листать вниз"><span></span></a>
+</section>
+
+<!-- ===== 3. О бренде ===== -->
+<section class="about reveal" id="about">
+  <p class="eyebrow">О бренде</p>
+  <h2>Для тех, кто не тратит<br>на укладку больше пяти минут</h2>
+  <p class="lead">MLN — это четыре средства, которые закрывают любую причёску: от гладкой классики до небрежного объёма. Без лишнего блеска, липкости и запаха, как от парфюмерного отдела.</p>
+</section>
+
+<!-- ===== Бегущая лента ===== -->
+<div class="marquee" aria-hidden="true"><div class="marquee-track"></div></div>
+
+<!-- ===== 4. Продукция ===== -->
+<section class="products" id="products">
+  <div class="section-head reveal">
+    <p class="eyebrow">Продукция</p>
+    <h2>Линейка MLN</h2>
+  </div>
+
+  <div class="cards">
+    <article class="card reveal" data-id="wax" data-name="Воск" data-price="1290" data-pack="jar-wax">
+      <div class="card-art"><svg viewBox="0 0 300 220"><use href="#pk-jar-wax"/></svg></div>
+      <h3>Воск</h3>
+      <p class="effect">Гладкая укладка с лёгким блеском</p>
+      <div class="meter"><span>Фиксация</span><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></div>
+      <div class="meter"><span>Блеск</span><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></div>
+      <div class="card-bottom"><b class="price">1 290 ₽</b><button class="btn btn-small shine add-to-cart">В корзину</button></div>
+    </article>
+
+    <article class="card reveal" data-id="clay" data-name="Глина" data-price="1390" data-pack="jar-clay">
+      <div class="card-art"><svg viewBox="0 0 300 220"><use href="#pk-jar-clay"/></svg></div>
+      <h3>Глина</h3>
+      <p class="effect">Матовая текстура и сильная фиксация</p>
+      <div class="meter"><span>Фиксация</span><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></div>
+      <div class="meter"><span>Блеск</span><i class="on"></i><i></i><i></i><i></i><i></i></div>
+      <div class="card-bottom"><b class="price">1 390 ₽</b><button class="btn btn-small shine add-to-cart">В корзину</button></div>
+    </article>
+
+    <article class="card reveal" data-id="spray" data-name="Солевой спрей" data-price="990" data-pack="spray">
+      <div class="card-art"><svg viewBox="0 0 170 380"><use href="#pk-spray"/></svg></div>
+      <h3>Солевой спрей</h3>
+      <p class="effect">Небрежный пляжный объём за минуту</p>
+      <div class="meter"><span>Фиксация</span><i class="on"></i><i class="on"></i><i></i><i></i><i></i></div>
+      <div class="meter"><span>Блеск</span><i class="on"></i><i></i><i></i><i></i><i></i></div>
+      <div class="card-bottom"><b class="price">990 ₽</b><button class="btn btn-small shine add-to-cart">В корзину</button></div>
+    </article>
+
+    <article class="card reveal" data-id="powder" data-name="Пудра для объёма" data-price="1090" data-pack="powder">
+      <div class="card-art"><svg viewBox="0 0 120 380"><use href="#pk-powder"/></svg></div>
+      <h3>Пудра для объёма</h3>
+      <p class="effect">Мгновенный объём у корней</p>
+      <div class="meter"><span>Фиксация</span><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></div>
+      <div class="meter"><span>Блеск</span><i></i><i></i><i></i><i></i><i></i></div>
+      <div class="card-bottom"><b class="price">1 090 ₽</b><button class="btn btn-small shine add-to-cart">В корзину</button></div>
+    </article>
+  </div>
+</section>
+
+
+<!-- ===== Вращающаяся банка ===== -->
+<section class="showcase" id="showcase">
+  <div class="showcase-sticky">
+    <div class="showcase-head">
+      <p class="eyebrow">Воск MLN</p>
+      <h2>Сделан, <span class="gold-text">чтобы держать</span></h2>
+    </div>
+    <div class="showcase-stage">
+      <ul class="feat feat-left">
+        <li data-at=".1"><b>Сильная фиксация</b><span>Форма держится до вечера</span></li>
+        <li data-at=".28"><b>Лёгкий блеск</b><span>Ухоженный вид без жирности</span></li>
+      </ul>
+      <svg class="showcase-jar" viewBox="0 -110 300 330" aria-label="Банка воска MLN">
+        <ellipse cx="150" cy="203" rx="142" ry="12" fill="url(#floorShadow)"/>
+        <clipPath id="sc-clip"><path d="M20 80 V176 A130 22 0 0 0 280 176 V80 Z"/></clipPath>
+        <path d="M20 80 V176 A130 22 0 0 0 280 176 V80 Z" fill="#141416" filter="url(#grain)"/>
+        <path id="sc-logo" d="" fill="url(#gold)" clip-path="url(#sc-clip)"/>
+        <!-- обратная сторона банки: этикетка -->
+        <g clip-path="url(#sc-clip)"><g id="sc-back" opacity="0" font-family="Manrope, Arial, sans-serif" font-weight="700" fill="url(#gold)" text-anchor="middle">
+          <text x="150" y="124" font-size="9" letter-spacing="3">STYLING WAX</text>
+          <line x1="110" y1="132" x2="190" y2="132" stroke="#c9a45c" stroke-opacity=".5"/>
+          <text x="150" y="146" font-size="7" letter-spacing="1.6" opacity=".85">HOLD ●●●●○   SHINE ●●●○○</text>
+          <text x="150" y="160" font-size="7" letter-spacing="1.6" opacity=".85">APPLY TO DRY HAIR</text>
+          <text x="150" y="174" font-size="7" letter-spacing="1.6" opacity=".6">75 ML · 2.5 FL OZ</text>
+        </g></g>
+        <path d="M20 80 V176 A130 22 0 0 0 280 176 V80 Z" fill="url(#cylShade)"/>
+        <path d="M20 80 V176 A130 22 0 0 0 280 176 V80 Z" fill="url(#spec)" opacity=".55"/>
+        <!-- воск внутри (виден, когда крышка поднята) -->
+        <g id="sc-inside" opacity="0">
+          <ellipse cx="150" cy="80" rx="130" ry="22" fill="#070707"/>
+          <ellipse cx="150" cy="81" rx="122" ry="19" fill="url(#waxIn)"/>
+          <path d="M70 82 Q110 70 150 80 T230 78" fill="none" stroke="#fff" stroke-opacity=".25" stroke-width="2"/>
+          <path d="M95 89 Q135 80 170 88 T215 86" fill="none" stroke="#6b4f20" stroke-opacity=".5" stroke-width="2"/>
+        </g>
+        <path id="sc-gap" d="M20 81 A130 22 0 0 0 280 81" fill="none" stroke="#000" stroke-width="5" opacity=".9"/>
+        <!-- крышка -->
+        <g id="sc-lid">
+          <path d="M17 50 V76 A133 22 0 0 0 283 76 V50 Z" fill="#1a1a1c" filter="url(#grain)"/>
+          <text x="150" y="92" text-anchor="middle" font-size="8.5" letter-spacing="3" font-family="Manrope, Arial, sans-serif" font-weight="700" fill="url(#gold)">STYLING WAX · 75 ML</text>
+          <path d="M17 50 V76 A133 22 0 0 0 283 76 V50 Z" fill="url(#cylShade)"/>
+          <path d="M17 50 V76 A133 22 0 0 0 283 76 V50 Z" fill="url(#spec)" opacity=".7"/>
+          <ellipse cx="150" cy="50" rx="133" ry="22" fill="url(#lidTop)"/>
+          <ellipse cx="150" cy="50" rx="132" ry="21.3" fill="none" stroke="url(#rim)" stroke-width="1.6"/>
+          <ellipse cx="150" cy="49" rx="96" ry="14.5" fill="none" stroke="#000" stroke-opacity=".55" stroke-width="2"/>
+          <ellipse cx="112" cy="42" rx="58" ry="6" fill="#fff" opacity=".05"/>
+        </g>
+      </svg>
+      <ul class="feat feat-right">
+        <li data-at=".46"><b>Без липкости</b><span>Легко распределяется по волосам</span></li>
+        <li data-at=".62"><b>Смывается водой</b><span>Без тяжёлых шампуней</span></li>
+      </ul>
+    </div>
+    <p class="showcase-final" data-at=".82">Внутри — 75 мл воска с древесным ароматом</p>
+    <div class="showcase-progress"><i></i></div>
+  </div>
+</section>
+
+<!-- ===== Тест «Подбери средство» ===== -->
+<section class="quiz" id="quiz">
+  <div class="section-head reveal">
+    <p class="eyebrow">Подбор</p>
+    <h2>Какое средство <span class="gold-text">твоё?</span></h2>
+    <p class="lead">Три коротких вопроса, и мы подскажем, с чего начать.</p>
+  </div>
+  <div class="quiz-box reveal"></div>
+</section>
+
+<!-- ===== Набор ===== -->
+<section class="bundle" id="bundle">
+  <div class="bundle-glow" aria-hidden="true"></div>
+  <div class="bundle-inner">
+    <div class="bundle-art reveal" aria-hidden="true">
+      <svg class="b-powder" viewBox="0 0 120 380"><use href="#pk-powder"/></svg>
+      <svg class="b-clay" viewBox="0 0 300 220"><use href="#pk-jar-clay"/></svg>
+      <svg class="b-wax" viewBox="0 0 300 220"><use href="#pk-jar-wax"/></svg>
+      <svg class="b-spray" viewBox="0 0 170 380"><use href="#pk-spray"/></svg>
+    </div>
+    <div class="bundle-text reveal" data-id="set" data-name="Набор MLN" data-price="3808" data-pack="set">
+      <p class="eyebrow">Набор</p>
+      <h2>Вся линейка <span class="gold-text">MLN</span></h2>
+      <p class="lead">Воск, глина, солевой спрей и пудра. Любая укладка — от гладкой классики до максимального объёма.</p>
+      <ul class="bundle-list">
+        <li>Воск <span>75 мл</span></li>
+        <li>Глина <span>75 мл</span></li>
+        <li>Солевой спрей <span>200 мл</span></li>
+        <li>Пудра для объёма <span>10 г</span></li>
+      </ul>
+      <div class="bundle-price">
+        <s>4 760 ₽</s>
+        <b>3 808 ₽</b>
+        <span class="badge">−20%</span>
+      </div>
+      <button class="btn shine add-to-cart">Добавить набор в корзину</button>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 6. Как использовать ===== -->
+<section class="how" id="how">
+  <div class="section-head reveal">
+    <p class="eyebrow">Как использовать</p>
+    <h2>Три шага</h2>
+  </div>
+  <div class="steps">
+    <div class="step reveal">
+      <span class="step-num">01</span>
+      <h3>Подсуши волосы</h3>
+      <p>Средства лучше всего работают на сухих или чуть влажных волосах.</p>
+    </div>
+    <div class="step reveal">
+      <span class="step-num">02</span>
+      <h3>Разотри в ладонях</h3>
+      <p>Хватит количества размером с горошину. Пудру сразу наноси на корни.</p>
+    </div>
+    <div class="step reveal">
+      <span class="step-num">03</span>
+      <h3>Уложи пальцами</h3>
+      <p>Подними волосы от корней и задай форму. Готово.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 7. Почему MLN ===== -->
+<section class="why">
+  <div class="section-head reveal">
+    <p class="eyebrow">Почему MLN</p>
+    <h2>Без компромиссов</h2>
+  </div>
+  <ul class="why-list">
+    <li class="reveal"><b>Держит весь день</b><span>Причёска не опадает к вечеру и не боится ветра.</span></li>
+    <li class="reveal"><b>Не липнет</b><span>Волосы остаются мягкими, руки легко отмыть.</span></li>
+    <li class="reveal"><b>Смывается водой</b><span>Без тяжёлых шампуней и следов на подушке.</span></li>
+    <li class="reveal"><b>Сдержанный аромат</b><span>Лёгкие древесные ноты, которые не спорят с парфюмом.</span></li>
+  </ul>
+</section>
+
+<!-- ===== 8. Отзывы ===== -->
+<section class="reviews" id="reviews">
+  <div class="section-head reveal">
+    <p class="eyebrow">Отзывы</p>
+    <h2>Что говорят покупатели</h2>
+  </div>
+  <div class="review-list">
+    <figure class="review reveal">
+      <div class="stars">★★★★★</div>
+      <blockquote>Пудра — магия. Тонкие волосы наконец стоят, а не лежат блином.</blockquote>
+      <figcaption>Артём, 24</figcaption>
+    </figure>
+    <figure class="review reveal">
+      <div class="stars">★★★★★</div>
+      <blockquote>Глиной укладываюсь утром, к вечеру всё на месте. Матовая, без жирного блеска.</blockquote>
+      <figcaption>Денис, 31</figcaption>
+    </figure>
+    <figure class="review reveal">
+      <div class="stars">★★★★☆</div>
+      <blockquote>Спрей + пудра — мой набор на каждый день. Банки выглядят дорого, не стыдно поставить на полку.</blockquote>
+      <figcaption>Максим, 27</figcaption>
+    </figure>
+  </div>
+</section>
+
+</main>
+
+<!-- ===== 9. Подвал ===== -->
+<footer class="footer" id="contacts">
+  <div class="footer-top">
+    <a href="#top" class="logo logo-big">MLN</a>
+    <p class="footer-mission">Мужская косметика для укладки, которая делает своё дело и не мешает жить.</p>
+  </div>
+  <div class="footer-cols">
+    <div>
+      <h4>Контакты</h4>
+      <a href="mailto:hello@mln.example">hello@mln.example</a>
+      <span>Ежедневно, 10:00–20:00</span>
+    </div>
+    <div>
+      <h4>Соцсети</h4>
+      <a href="#">Telegram</a>
+      <a href="#">VK</a>
+      <a href="#">YouTube</a>
+    </div>
+    <div>
+      <h4>Разделы</h4>
+      <a href="#products">Продукция</a>
+      <a href="#how">Как использовать</a>
+    </div>
+  </div>
+  <p class="footer-copy">© 2026 MLN. Учебный проект.</p>
+</footer>
+
+<!-- ===== Корзина ===== -->
+<div class="cart-overlay"></div>
+<aside class="cart" aria-label="Корзина" aria-hidden="true">
+  <div class="cart-head">
+    <h3>Корзина</h3>
+    <button class="cart-close" aria-label="Закрыть корзину">✕</button>
+  </div>
+  <div class="cart-items"></div>
+  <div class="cart-foot">
+    <div class="cart-total"><span>Итого</span><b>0 ₽</b></div>
+    <button class="btn shine cart-order">Оформить заказ</button>
+    <p class="cart-note">Это учебный сайт: заказы не отправляются.</p>
+  </div>
+</aside>
+<div class="toast" role="status" aria-live="polite"></div>
+
+<!-- ===== Сами рисунки упаковки ===== -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <g id="pk-jar-wax">
+      <ellipse cx="150" cy="203" rx="142" ry="12" fill="url(#floorShadow)"/>
+      <clipPath id="pk-jar-wax-clip"><path d="M20 80 V176 A130 22 0 0 0 280 176 V80 Z"/></clipPath>
+      <!-- корпус -->
+      <path d="M20 80 V176 A130 22 0 0 0 280 176 V80 Z" fill="#141416" filter="url(#grain)"/>
+      <path d="M22.0 173.8 L22.6 174.4 L23.3 174.9 L24.1 175.5 L25.0 176.1 L26.0 176.6 L27.1 177.2 L28.2 177.7 L29.5 178.2 L29.5 170.6 L29.5 162.9 L29.5 155.2 L29.5 147.6 L29.5 139.9 L29.5 132.2 L29.5 124.5 L29.5 116.9 L31.4 125.3 L33.4 133.7 L35.6 142.1 L38.0 150.5 L40.5 158.8 L43.1 167.2 L45.9 175.5 L48.9 183.8 L50.6 184.2 L52.5 184.5 L54.3 184.9 L56.2 185.2 L58.2 185.6 L60.2 185.9 L62.2 186.2 L64.3 186.5 L67.9 179.4 L71.7 172.2 L75.6 165.0 L79.6 157.8 L83.7 150.6 L87.8 143.3 L92.1 136.0 L96.4 128.7 L96.4 136.3 L96.4 144.0 L96.4 151.7 L96.4 159.4 L96.4 167.0 L96.4 174.7 L96.4 182.4 L96.4 190.0 L99.6 190.3 L102.7 190.5 L105.9 190.7 L109.1 190.9 L112.4 191.1 L115.6 191.2 L118.9 191.4 L122.3 191.5 L122.3 181.3 L122.3 171.0 L122.3 160.8 L122.3 150.5 L122.3 140.3 L122.3 130.1 L122.3 119.8 L122.3 109.6 L117.7 109.4 L113.2 109.2 L108.7 109.0 L104.3 108.7 L100.0 108.4 L95.7 108.1 L91.5 107.8 L87.4 107.4 L83.1 114.7 L79.0 122.0 L74.9 129.3 L71.0 136.6 L67.1 143.8 L63.4 151.1 L59.8 158.3 L56.4 165.4 L53.0 157.1 L49.8 148.7 L46.7 140.3 L43.8 131.8 L41.0 123.4 L38.4 114.9 L35.9 106.4 L33.6 97.9 L31.6 97.2 L29.8 96.5 L28.1 95.7 L26.5 95.0 L25.1 94.2 L23.9 93.5 L22.9 92.7 L22.0 91.9ZM155.5 192.0 L164.5 191.9 L173.4 191.6 L182.2 191.3 L190.9 190.9 L199.3 190.4 L207.5 189.7 L215.5 189.0 L223.1 188.2 L223.1 186.4 L223.1 184.6 L223.1 182.7 L223.1 180.9 L223.1 179.1 L223.1 177.3 L223.1 175.5 L223.1 173.7 L218.4 174.2 L213.6 174.7 L208.6 175.1 L203.5 175.5 L198.4 175.9 L193.1 176.2 L187.8 176.5 L182.4 176.8 L182.4 168.4 L182.4 159.9 L182.4 151.5 L182.4 143.1 L182.4 134.7 L182.4 126.3 L182.4 117.8 L182.4 109.4 L179.1 109.6 L175.7 109.7 L172.4 109.8 L169.0 109.9 L165.6 110.0 L162.3 110.0 L158.9 110.1 L155.5 110.1ZM241.1 185.7 L243.5 185.3 L245.8 184.9 L248.1 184.4 L250.3 184.0 L252.4 183.5 L254.5 183.1 L256.5 182.6 L258.4 182.1 L258.4 174.7 L258.4 167.3 L258.4 159.8 L258.4 152.4 L258.4 145.0 L258.4 137.5 L258.4 130.1 L258.4 122.6 L262.5 129.0 L266.1 135.3 L269.4 141.5 L272.2 147.8 L274.6 154.0 L276.6 160.1 L278.1 166.3 L279.2 172.5 L279.6 171.8 L279.8 171.2 L280.0 170.5 L280.0 170.0 L280.0 170.0 L280.0 170.0 L280.0 170.0 L280.0 170.0 L280.0 159.8 L280.0 149.5 L280.0 139.3 L280.0 129.1 L280.0 118.8 L280.0 108.6 L280.0 98.3 L280.0 88.1 L280.0 88.1 L280.0 88.1 L280.0 88.1 L280.0 88.1 L280.0 88.3 L279.9 88.9 L279.8 89.5 L279.5 90.0 L279.5 97.5 L279.5 104.9 L279.5 112.4 L279.5 119.8 L279.5 127.3 L279.5 134.7 L279.5 142.2 L279.5 149.6 L278.6 143.5 L277.3 137.3 L275.5 131.1 L273.3 124.9 L270.7 118.6 L267.7 112.4 L264.3 106.1 L260.4 99.7 L258.3 100.3 L256.2 100.8 L253.9 101.3 L251.5 101.9 L249.0 102.4 L246.5 102.9 L243.8 103.3 L241.1 103.8Z" fill="url(#gold)" fill-rule="nonzero" clip-path="url(#pk-jar-wax-clip)"/>
+      <path d="M20 80 V176 A130 22 0 0 0 280 176 V80 Z" fill="url(#cylShade)"/>
+      <path d="M20 80 V176 A130 22 0 0 0 280 176 V80 Z" fill="url(#spec)" opacity=".55"/>
+      <!-- щель под крышкой -->
+      <path d="M20 81 A130 22 0 0 0 280 81" fill="none" stroke="#000" stroke-width="5" opacity=".9"/>
+      <!-- бок крышки -->
+      <path d="M17 50 V76 A133 22 0 0 0 283 76 V50 Z" fill="#1a1a1c" filter="url(#grain)"/>
+      <text x="150" y="92" text-anchor="middle" font-size="8.5" letter-spacing="3" font-family="Manrope, Arial, sans-serif" font-weight="700" fill="url(#gold)">STYLING WAX · 75 ML</text>
+      <path d="M17 50 V76 A133 22 0 0 0 283 76 V50 Z" fill="url(#cylShade)"/>
+      <path d="M17 50 V76 A133 22 0 0 0 283 76 V50 Z" fill="url(#spec)" opacity=".7"/>
+      <path d="M17 76 A133 22 0 0 0 283 76" fill="none" stroke="#fff" stroke-opacity=".12" stroke-width="1"/>
+      <!-- верх крышки -->
+      <ellipse cx="150" cy="50" rx="133" ry="22" fill="url(#lidTop)"/>
+      <ellipse cx="150" cy="50" rx="132" ry="21.3" fill="none" stroke="url(#rim)" stroke-width="1.6"/>
+      <ellipse cx="150" cy="49" rx="96" ry="14.5" fill="none" stroke="#000" stroke-opacity=".55" stroke-width="2"/>
+      <ellipse cx="150" cy="50.2" rx="96" ry="14.5" fill="none" stroke="#fff" stroke-opacity=".07" stroke-width="1"/>
+      <ellipse cx="112" cy="42" rx="58" ry="6" fill="#fff" opacity=".05"/>
+    </g>
+    <g id="pk-jar-clay">
+      <ellipse cx="150" cy="203" rx="142" ry="12" fill="url(#floorShadow)"/>
+      <clipPath id="pk-jar-clay-clip"><path d="M20 80 V176 A130 22 0 0 0 280 176 V80 Z"/></clipPath>
+      <!-- корпус -->
+      <path d="M20 80 V176 A130 22 0 0 0 280 176 V80 Z" fill="#141416" filter="url(#grain)"/>
+      <path d="M22.0 173.8 L22.6 174.4 L23.3 174.9 L24.1 175.5 L25.0 176.1 L26.0 176.6 L27.1 177.2 L28.2 177.7 L29.5 178.2 L29.5 170.6 L29.5 162.9 L29.5 155.2 L29.5 147.6 L29.5 139.9 L29.5 132.2 L29.5 124.5 L29.5 116.9 L31.4 125.3 L33.4 133.7 L35.6 142.1 L38.0 150.5 L40.5 158.8 L43.1 167.2 L45.9 175.5 L48.9 183.8 L50.6 184.2 L52.5 184.5 L54.3 184.9 L56.2 185.2 L58.2 185.6 L60.2 185.9 L62.2 186.2 L64.3 186.5 L67.9 179.4 L71.7 172.2 L75.6 165.0 L79.6 157.8 L83.7 150.6 L87.8 143.3 L92.1 136.0 L96.4 128.7 L96.4 136.3 L96.4 144.0 L96.4 151.7 L96.4 159.4 L96.4 167.0 L96.4 174.7 L96.4 182.4 L96.4 190.0 L99.6 190.3 L102.7 190.5 L105.9 190.7 L109.1 190.9 L112.4 191.1 L115.6 191.2 L118.9 191.4 L122.3 191.5 L122.3 181.3 L122.3 171.0 L122.3 160.8 L122.3 150.5 L122.3 140.3 L122.3 130.1 L122.3 119.8 L122.3 109.6 L117.7 109.4 L113.2 109.2 L108.7 109.0 L104.3 108.7 L100.0 108.4 L95.7 108.1 L91.5 107.8 L87.4 107.4 L83.1 114.7 L79.0 122.0 L74.9 129.3 L71.0 136.6 L67.1 143.8 L63.4 151.1 L59.8 158.3 L56.4 165.4 L53.0 157.1 L49.8 148.7 L46.7 140.3 L43.8 131.8 L41.0 123.4 L38.4 114.9 L35.9 106.4 L33.6 97.9 L31.6 97.2 L29.8 96.5 L28.1 95.7 L26.5 95.0 L25.1 94.2 L23.9 93.5 L22.9 92.7 L22.0 91.9ZM155.5 192.0 L164.5 191.9 L173.4 191.6 L182.2 191.3 L190.9 190.9 L199.3 190.4 L207.5 189.7 L215.5 189.0 L223.1 188.2 L223.1 186.4 L223.1 184.6 L223.1 182.7 L223.1 180.9 L223.1 179.1 L223.1 177.3 L223.1 175.5 L223.1 173.7 L218.4 174.2 L213.6 174.7 L208.6 175.1 L203.5 175.5 L198.4 175.9 L193.1 176.2 L187.8 176.5 L182.4 176.8 L182.4 168.4 L182.4 159.9 L182.4 151.5 L182.4 143.1 L182.4 134.7 L182.4 126.3 L182.4 117.8 L182.4 109.4 L179.1 109.6 L175.7 109.7 L172.4 109.8 L169.0 109.9 L165.6 110.0 L162.3 110.0 L158.9 110.1 L155.5 110.1ZM241.1 185.7 L243.5 185.3 L245.8 184.9 L248.1 184.4 L250.3 184.0 L252.4 183.5 L254.5 183.1 L256.5 182.6 L258.4 182.1 L258.4 174.7 L258.4 167.3 L258.4 159.8 L258.4 152.4 L258.4 145.0 L258.4 137.5 L258.4 130.1 L258.4 122.6 L262.5 129.0 L266.1 135.3 L269.4 141.5 L272.2 147.8 L274.6 154.0 L276.6 160.1 L278.1 166.3 L279.2 172.5 L279.6 171.8 L279.8 171.2 L280.0 170.5 L280.0 170.0 L280.0 170.0 L280.0 170.0 L280.0 170.0 L280.0 170.0 L280.0 159.8 L280.0 149.5 L280.0 139.3 L280.0 129.1 L280.0 118.8 L280.0 108.6 L280.0 98.3 L280.0 88.1 L280.0 88.1 L280.0 88.1 L280.0 88.1 L280.0 88.1 L280.0 88.3 L279.9 88.9 L279.8 89.5 L279.5 90.0 L279.5 97.5 L279.5 104.9 L279.5 112.4 L279.5 119.8 L279.5 127.3 L279.5 134.7 L279.5 142.2 L279.5 149.6 L278.6 143.5 L277.3 137.3 L275.5 131.1 L273.3 124.9 L270.7 118.6 L267.7 112.4 L264.3 106.1 L260.4 99.7 L258.3 100.3 L256.2 100.8 L253.9 101.3 L251.5 101.9 L249.0 102.4 L246.5 102.9 L243.8 103.3 L241.1 103.8Z" fill="url(#gold)" fill-rule="nonzero" clip-path="url(#pk-jar-clay-clip)"/>
+      <path d="M20 80 V176 A130 22 0 0 0 280 176 V80 Z" fill="url(#cylShade)"/>
+      <path d="M20 80 V176 A130 22 0 0 0 280 176 V80 Z" fill="url(#spec)" opacity=".55"/>
+      <!-- щель под крышкой -->
+      <path d="M20 81 A130 22 0 0 0 280 81" fill="none" stroke="#000" stroke-width="5" opacity=".9"/>
+      <!-- бок крышки -->
+      <path d="M17 50 V76 A133 22 0 0 0 283 76 V50 Z" fill="#1a1a1c" filter="url(#grain)"/>
+      <text x="150" y="92" text-anchor="middle" font-size="8.5" letter-spacing="3" font-family="Manrope, Arial, sans-serif" font-weight="700" fill="url(#gold)">MATTE CLAY · 75 ML</text>
+      <path d="M17 50 V76 A133 22 0 0 0 283 76 V50 Z" fill="url(#cylShade)"/>
+      <path d="M17 50 V76 A133 22 0 0 0 283 76 V50 Z" fill="url(#spec)" opacity=".7"/>
+      <path d="M17 76 A133 22 0 0 0 283 76" fill="none" stroke="#fff" stroke-opacity=".12" stroke-width="1"/>
+      <!-- верх крышки -->
+      <ellipse cx="150" cy="50" rx="133" ry="22" fill="url(#lidTop)"/>
+      <ellipse cx="150" cy="50" rx="132" ry="21.3" fill="none" stroke="url(#rim)" stroke-width="1.6"/>
+      <ellipse cx="150" cy="49" rx="96" ry="14.5" fill="none" stroke="#000" stroke-opacity=".55" stroke-width="2"/>
+      <ellipse cx="150" cy="50.2" rx="96" ry="14.5" fill="none" stroke="#fff" stroke-opacity=".07" stroke-width="1"/>
+      <ellipse cx="112" cy="42" rx="58" ry="6" fill="#fff" opacity=".05"/>
+    </g>
+    <!-- Солевой спрей: светлый графит -->
+    <g id="pk-spray">
+      <ellipse cx="85" cy="370" rx="76" ry="9" fill="url(#floorShadow)"/>
+      <!-- помпа -->
+      <rect x="66" y="10" width="38" height="50" rx="5" fill="#141416"/>
+      <rect x="56" y="22" width="12" height="8" rx="2" fill="#0b0b0c"/>
+      <rect x="66" y="10" width="38" height="50" rx="5" fill="url(#cylShade)"/>
+      <rect x="66" y="10" width="38" height="50" rx="5" fill="url(#spec)" opacity=".5"/>
+      <rect x="54" y="58" width="62" height="42" rx="4" fill="#161618"/>
+      <g stroke="#000" stroke-opacity=".55" stroke-width="1.2">
+        <line x1="60" y1="61" x2="60" y2="97"/><line x1="66" y1="61" x2="66" y2="97"/><line x1="72" y1="61" x2="72" y2="97"/>
+        <line x1="78" y1="61" x2="78" y2="97"/><line x1="84" y1="61" x2="84" y2="97"/><line x1="90" y1="61" x2="90" y2="97"/>
+        <line x1="96" y1="61" x2="96" y2="97"/><line x1="102" y1="61" x2="102" y2="97"/><line x1="108" y1="61" x2="108" y2="97"/>
+      </g>
+      <rect x="54" y="58" width="62" height="42" rx="4" fill="url(#cylShade)"/>
+      <rect x="54" y="58" width="62" height="42" rx="4" fill="url(#spec)" opacity=".5"/>
+      <rect x="62" y="100" width="46" height="11" fill="#0d0d0e"/>
+      <!-- бутылка -->
+      <path d="M64 110 C40 114 21 128 20 160 V350 Q20 366 36 366 H134 Q150 366 150 350 V160 C149 128 130 114 106 110 Z" fill="#8e9196" filter="url(#grain)"/>
+      <text transform="translate(118 352) rotate(-90)" textLength="222" lengthAdjust="spacingAndGlyphs" font-size="98" font-family="Archivo, Oswald, Impact, sans-serif" font-weight="900" font-stretch="125%" fill="#0c0c0d">MLN</text>
+      <text transform="translate(139 352) rotate(-90)" font-size="8.2" letter-spacing="2.2" font-family="Manrope, Arial, sans-serif" font-weight="700" fill="#111">SEA SALT SPRAY · 200 ML</text>
+      <path d="M64 110 C40 114 21 128 20 160 V350 Q20 366 36 366 H134 Q150 366 150 350 V160 C149 128 130 114 106 110 Z" fill="url(#cylShade)"/>
+      <path d="M64 110 C40 114 21 128 20 160 V350 Q20 366 36 366 H134 Q150 366 150 350 V160 C149 128 130 114 106 110 Z" fill="url(#spec)" opacity=".9"/>
+      <path d="M64 111 C40 115 22 129 21 160" fill="none" stroke="#fff" stroke-opacity=".25" stroke-width="1.2"/>
+    </g>
+    <!-- Пудра: светлый графит -->
+    <g id="pk-powder">
+      <ellipse cx="60" cy="371" rx="56" ry="8" fill="url(#floorShadow)"/>
+      <rect x="18" y="12" width="84" height="148" rx="7" fill="#9a9da2" filter="url(#grain)"/>
+      <rect x="18" y="158" width="84" height="208" rx="5" fill="#8e9196" filter="url(#grain)"/>
+      <text transform="translate(93 336) rotate(-90)" textLength="306" lengthAdjust="spacingAndGlyphs" font-size="80" font-family="Archivo, Oswald, Impact, sans-serif" font-weight="900" font-stretch="125%" fill="#0c0c0d">MLN</text>
+      <text x="25" y="356" textLength="70" lengthAdjust="spacingAndGlyphs" font-size="6.8" font-family="Manrope, Arial, sans-serif" font-weight="700" fill="#111">VOLUME POWDER · 10G</text>
+      <rect x="18" y="12" width="84" height="148" rx="7" fill="url(#cylShade)"/>
+      <rect x="18" y="158" width="84" height="208" rx="5" fill="url(#cylShade)"/>
+      <rect x="18" y="12" width="84" height="354" rx="6" fill="url(#spec)" opacity=".9"/>
+      <!-- шов между крышкой и тубусом -->
+      <line x1="18" y1="158.5" x2="102" y2="158.5" stroke="#1a1a1b" stroke-width="2.4"/>
+      <line x1="18" y1="161" x2="102" y2="161" stroke="#fff" stroke-opacity=".25" stroke-width="1"/>
+      <!-- верхний край -->
+      <rect x="20" y="12" width="80" height="4" rx="2" fill="url(#graphiteTop)" opacity=".7"/>
+    </g>
+  </defs>
+</svg>
+
+<script src="script.js"></script>
+</body>
+</html>
