@@ -329,28 +329,83 @@
 
 <!-- ===== 8. Отзывы ===== -->
 <section class="reviews" id="reviews">
-  <div class="section-head reveal">
-    <p class="eyebrow">Отзывы</p>
-    <h2>Что говорят покупатели</h2>
+  <div class="reviews-top">
+    <div class="section-head reveal">
+      <p class="eyebrow">Отзывы</p>
+      <h2>Что говорят <span class="gold-text">покупатели</span></h2>
+    </div>
+
+    <!-- сводка рейтинга -->
+    <div class="rating reveal">
+      <div class="rating-big">
+        <span class="rating-num" data-to="4.9">0,0</span>
+        <div class="rating-stars" aria-hidden="true">★★★★★</div>
+        <p>на основе <b class="rating-count" data-to="1248">0</b> отзывов</p>
+      </div>
+      <ul class="rating-bars">
+        <li><span>5 ★</span><i><b style="--w:89%"></b></i><em>89%</em></li>
+        <li><span>4 ★</span><i><b style="--w:9%"></b></i><em>9%</em></li>
+        <li><span>3 ★</span><i><b style="--w:2%"></b></i><em>2%</em></li>
+        <li><span>2 ★</span><i><b style="--w:0%"></b></i><em>0%</em></li>
+        <li><span>1 ★</span><i><b style="--w:0%"></b></i><em>0%</em></li>
+      </ul>
+    </div>
   </div>
-  <div class="review-list">
-    <figure class="review reveal">
-      <div class="stars">★★★★★</div>
-      <blockquote>Пудра — магия. Тонкие волосы наконец стоят, а не лежат блином.</blockquote>
-      <figcaption>Артём, 24</figcaption>
-    </figure>
-    <figure class="review reveal">
-      <div class="stars">★★★★★</div>
-      <blockquote>Глиной укладываюсь утром, к вечеру всё на месте. Матовая, без жирного блеска.</blockquote>
-      <figcaption>Денис, 31</figcaption>
-    </figure>
-    <figure class="review reveal">
-      <div class="stars">★★★★☆</div>
-      <blockquote>Спрей + пудра — мой набор на каждый день. Банки выглядят дорого, не стыдно поставить на полку.</blockquote>
-      <figcaption>Максим, 27</figcaption>
-    </figure>
+
+  <!-- живая стена отзывов: два ряда едут в разные стороны -->
+  <div class="wall">
+    <div class="wall-row"><div class="wall-track"></div></div>
+    <div class="wall-row wall-reverse"><div class="wall-track"></div></div>
+  </div>
+
+  <div class="review-cta reveal">
+    <button class="btn shine open-review">Оставить отзыв</button>
   </div>
 </section>
+
+<!-- ===== Окно «Оставить отзыв» ===== -->
+<div class="modal-overlay"></div>
+<div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" aria-hidden="true">
+  <button class="modal-close" aria-label="Закрыть">✕</button>
+  <p class="eyebrow">Твой отзыв</p>
+  <h3 id="modal-title">Как тебе MLN?</h3>
+  <form class="review-form" novalidate>
+    <div class="stars-pick" role="radiogroup" aria-label="Оценка">
+      <button type="button" data-v="1" aria-label="1 звезда">★</button>
+      <button type="button" data-v="2" aria-label="2 звезды">★</button>
+      <button type="button" data-v="3" aria-label="3 звезды">★</button>
+      <button type="button" data-v="4" aria-label="4 звезды">★</button>
+      <button type="button" data-v="5" aria-label="5 звёзд">★</button>
+    </div>
+    <label>Имя
+      <input name="name" maxlength="30" placeholder="Например, Артём" required>
+    </label>
+    <div class="form-row">
+      <label>Товар
+        <select name="product">
+          <option value="wax">Воск</option>
+          <option value="clay">Глина</option>
+          <option value="spray">Солевой спрей</option>
+          <option value="powder">Пудра для объёма</option>
+          <option value="set">Набор MLN</option>
+        </select>
+      </label>
+      <label>Волосы
+        <select name="hair">
+          <option>Тонкие волосы</option>
+          <option selected>Обычные волосы</option>
+          <option>Густые волосы</option>
+        </select>
+      </label>
+    </div>
+    <label>Отзыв
+      <textarea name="text" rows="4" maxlength="220" placeholder="Что понравилось, как держит укладку…" required></textarea>
+    </label>
+    <p class="form-error" role="alert"></p>
+    <button type="submit" class="btn shine">Опубликовать</button>
+    <p class="cart-note">Отзыв сохранится только в твоём браузере.</p>
+  </form>
+</div>
 
 </main>
 

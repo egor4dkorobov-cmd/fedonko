@@ -530,3 +530,142 @@ const Cart = (function () {
 
   show();
 })();
+
+/* =========================================================
+   ОТЗЫВЫ: сводка рейтинга, живая стена, форма
+   ========================================================= */
+(function reviews() {
+  const section = document.querySelector('.reviews');
+  if (!section) return;
+
+  const PRODUCT = {
+    wax:    { name: 'Воск',             pack: 'jar-wax' },
+    clay:   { name: 'Глина',            pack: 'jar-clay' },
+    spray:  { name: 'Солевой спрей',    pack: 'spray' },
+    powder: { name: 'Пудра для объёма', pack: 'powder' },
+    set:    { name: 'Набор MLN',        pack: 'set' },
+  };
+
+  // готовые отзывы (выдуманные — сайт учебный)
+  const BASE = [
+    { name: 'Артём К.',  hair: 'Тонкие волосы',  time: '3 месяца',  p: 'powder', stars: 5, text: 'Пудра — магия. Тонкие волосы наконец стоят, а не лежат блином.' },
+    { name: 'Денис М.',  hair: 'Густые волосы',  time: 'полгода',   p: 'clay',   stars: 5, text: 'Глиной укладываюсь утром, к вечеру всё на месте. Матовая, без жирного блеска.' },
+    { name: 'Максим Л.', hair: 'Обычные волосы', time: '2 месяца',  p: 'spray',  stars: 4, text: 'Спрей + пудра — мой набор на каждый день. Банки выглядят дорого, не стыдно поставить на полку.' },
+    { name: 'Илья Р.',   hair: 'Густые волосы',  time: '4 месяца',  p: 'wax',    stars: 5, text: 'Наконец воск, который не превращает волосы в шлем. Блеск лёгкий, как надо.' },
+    { name: 'Никита С.', hair: 'Тонкие волосы',  time: '1 месяц',   p: 'spray',  stars: 5, text: 'Брызнул перед феном — и объём как после барбера. Пахнет сандалом, очень приятно.' },
+    { name: 'Павел Д.',  hair: 'Обычные волосы', time: '5 месяцев', p: 'clay',   stars: 5, text: 'Перепробовал кучу глин, эта держит лучше всех и легко смывается.' },
+    { name: 'Тимур А.',  hair: 'Густые волосы',  time: '3 месяца',  p: 'wax',    stars: 4, text: 'Хорошо собирает непослушные волосы. Хотелось бы банку побольше.' },
+    { name: 'Роман В.',  hair: 'Тонкие волосы',  time: '2 месяца',  p: 'powder', stars: 5, text: 'Пара встряхиваний у корней — и причёска держится весь день. Кладу в карман, удобно.' },
+    { name: 'Кирилл Н.', hair: 'Обычные волосы', time: 'полгода',   p: 'set',    stars: 5, text: 'Взял набор, чтобы попробовать всё. В итоге пользуюсь всеми четырьмя по настроению.' },
+    { name: 'Олег Ф.',   hair: 'Густые волосы',  time: '1 месяц',   p: 'spray',  stars: 4, text: 'Для текстуры отлично, но на моих густых волосах фиксации мало — добавляю глину.' },
+  ];
+
+  let mine = [];
+  try { mine = JSON.parse(localStorage.getItem('mln-reviews')) || []; } catch (e) { mine = []; }
+
+  // защищаем текст пользователя: показываем как текст, а не как код
+  const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const initials = (n) => n.trim().split(/\s+/).slice(0, 2).map((w) => w[0]).join('').toUpperCase();
+  const stars = (k) => '★'.repeat(k) + `<s>${'★'.repeat(5 - k)}</s>`;
+
+  function card(r) {
+    const prod = PRODUCT[r.p] || PRODUCT.wax;
+    return `
+      <figure class="rcard${r.mine ? ' mine' : ''}">
+        <div class="rcard-top">
+          <span class="avatar">${esc(initials(r.name))}</span>
+          <div class="rcard-who"><b>${esc(r.name)}</b><small>${esc(r.hair)} · ${esc(r.time)}</small></div>
+        </div>
+        <span class="rstars" aria-label="${r.stars} из 5">${stars(r.stars)}</span>
+        <blockquote>${esc(r.text)}</blockquote>
+        <figcaption class="rprod">${Cart.packSvg(prod.pack)}${prod.name}${r.mine ? '<span class="rcard-new">ТВОЙ ОТЗЫВ</span>' : ''}</figcaption>
+      </figure>`;
+  }
+
+  const tracks = section.querySelectorAll('.wall-track');
+  function renderWall() {
+    const all = [...mine.map((r) => ({ ...r, mine: true })), ...BASE];
+    const rows = [[], []];
+    all.forEach((r, i) => rows[i % 2].push(r));
+    tracks.forEach((t, i) => {
+      // одна группа + её копия — чтобы ряд ехал без разрыва
+      const group = `<div class="wall-group">${rows[i].map(card).join('')}</div>`;
+      t.innerHTML = group + group;
+    });
+  }
+  renderWall();
+
+  // --- сводка: цифры набегают, когда блок появляется на экране ---
+  const num = section.querySelector('.rating-num');
+  const count = section.querySelector('.rating-count');
+  function countUp() {
+    const toN = +num.dataset.to, toC = +count.dataset.to + mine.length;
+    const t0 = performance.now(), dur = reduceMotion ? 0 : 1600;
+    (function step(now) {
+      const k = dur ? Math.min(1, (now - t0) / dur) : 1;
+      const e = 1 - Math.pow(1 - k, 3);
+      num.textContent = (toN * e).toFixed(1).replace('.', ',');
+      count.textContent = Math.round(toC * e).toLocaleString('ru-RU');
+      if (k < 1) requestAnimationFrame(step);
+    })(t0);
+  }
+  const ratingIO = new IntersectionObserver((en) => {
+    if (en[0].isIntersecting) { countUp(); ratingIO.disconnect(); }
+  }, { threshold: 0.4 });
+  ratingIO.observe(section.querySelector('.rating'));
+
+  // --- окно «Оставить отзыв» ---
+  const body = document.body;
+  const modal = document.querySelector('.modal');
+  const form = modal.querySelector('.review-form');
+  const err = form.querySelector('.form-error');
+  const starBtns = [...form.querySelectorAll('.stars-pick button')];
+  let rating = 5;
+
+  function paintStars(k) { starBtns.forEach((b) => b.classList.toggle('on', +b.dataset.v <= k)); }
+  paintStars(rating);
+  starBtns.forEach((b) => {
+    b.addEventListener('click', () => { rating = +b.dataset.v; paintStars(rating); });
+    b.addEventListener('mouseenter', () => paintStars(+b.dataset.v));
+    b.addEventListener('mouseleave', () => paintStars(rating));
+  });
+
+  function open() {
+    body.classList.add('modal-open'); modal.setAttribute('aria-hidden', 'false');
+    setTimeout(() => form.elements.name.focus(), 300);
+  }
+  function close() { body.classList.remove('modal-open'); modal.setAttribute('aria-hidden', 'true'); }
+  section.querySelector('.open-review').addEventListener('click', open);
+  modal.querySelector('.modal-close').addEventListener('click', close);
+  document.querySelector('.modal-overlay').addEventListener('click', close);
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
+
+  // ошибка пропадает, как только начинаешь исправлять
+  form.addEventListener('input', (e) => {
+    e.target.classList.remove('invalid');
+    err.textContent = '';
+  });
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const f = form.elements;
+    const name = f.name.value.trim(), text = f.text.value.trim();
+    f.name.classList.toggle('invalid', name.length < 2);
+    f.text.classList.toggle('invalid', text.length < 10);
+    if (name.length < 2) { err.textContent = 'Напиши имя — хотя бы 2 буквы.'; f.name.focus(); return; }
+    if (text.length < 10) { err.textContent = 'Отзыв слишком короткий — напиши хотя бы пару слов.'; f.text.focus(); return; }
+    err.textContent = '';
+
+    mine.unshift({ name, hair: f.hair.value, time: 'только что', p: f.product.value, stars: rating, text });
+    try { localStorage.setItem('mln-reviews', JSON.stringify(mine.slice(0, 10))); } catch (e) {}
+    renderWall();
+    count.textContent = (+count.dataset.to + mine.length).toLocaleString('ru-RU');
+
+    form.reset(); rating = 5; paintStars(5);
+    close();
+    document.querySelector('.wall').scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'center' });
+    const t = document.querySelector('.toast');
+    t.innerHTML = 'Спасибо! <b>Отзыв добавлен</b>';
+    t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2600);
+  });
+})();
