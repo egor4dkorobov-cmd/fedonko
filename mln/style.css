@@ -932,3 +932,18 @@ body.modal-open .modal { opacity: 1; visibility: visible; transform: translate(-
 }
 .rcard .rstars { display: block; font-size: 15px; margin-bottom: 10px; letter-spacing: .12em; }
 .rcard-who small { display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* ===== Быстродействие ===== */
+/* банки на главном экране: тень рисуется один раз, дальше двигается готовая картинка */
+.pack { will-change: transform, translate; filter: drop-shadow(0 25px 30px rgba(0,0,0,.75)); }
+/* большая банка: без размытой тени (она пересчитывалась на каждом кадре) */
+.showcase-jar { filter: none; }
+/* бегущие ленты и свечение двигаются отдельным слоем */
+.marquee-track, .wall-track { will-change: transform; }
+.hero-glow { will-change: transform; }
+.rocks { will-change: translate; }
+/* свечение и так мягкое — размытие убрано, оно пересчитывалось на каждом кадре */
+.hero-glow { filter: none; }
+.offscreen *, .offscreen *::before, .offscreen *::after { animation-play-state: paused !important; }
+/* банка внутри обёртки: двигается обёртка, а рисунок не перерисовывается */
+.pack > svg { display: block; width: 100%; height: auto; }

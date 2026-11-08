@@ -33,17 +33,20 @@ if (hasMouse) {
   let mx = innerWidth / 2, my = innerHeight / 2;  // где мышь
   let rx = mx, ry = my;                           // где круг (догоняет мышь)
 
-  window.addEventListener('mousemove', (e) => {
-    mx = e.clientX; my = e.clientY;
-    dot.style.transform = `translate(${mx}px, ${my}px)`;
-  });
-
-  (function follow() {
+  let following = false;
+  function follow() {
     rx += (mx - rx) * 0.18;
     ry += (my - ry) * 0.18;
     ring.style.transform = `translate(${rx}px, ${ry}px)`;
+    // круг догнал мышь — останавливаемся, пока мышь снова не двинется
+    if (Math.abs(mx - rx) < 0.1 && Math.abs(my - ry) < 0.1) { following = false; return; }
     requestAnimationFrame(follow);
-  })();
+  }
+  window.addEventListener('mousemove', (e) => {
+    mx = e.clientX; my = e.clientY;
+    dot.style.transform = `translate(${mx}px, ${my}px)`;
+    if (!following) { following = true; requestAnimationFrame(follow); }
+  });
 
   // На всём, что можно нажать, круг увеличивается
   // на всём, что можно нажать (в том числе на кнопках, которые появляются позже), круг растёт
@@ -158,7 +161,7 @@ document.querySelectorAll('.reveal').forEach((el, i) => {
   const ctx = canvas.getContext('2d');
   let w, h, particles = [];
   let mouse = { x: -9999, y: -9999 };
-  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  const dpr = 1;   // пылинки крошечные — чёткость ретины им не нужна, а рисовать в 4 раза меньше точек
 
   function resize() {
     w = canvas.clientWidth; h = canvas.clientHeight;
@@ -197,14 +200,22 @@ document.querySelectorAll('.reveal').forEach((el, i) => {
       if (p.x < -5) p.x = w + 5;
       if (p.x > w + 5) p.x = -5;
 
-      const alpha = p.a * (0.6 + Math.sin(p.tw) * 0.4);
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      ctx.fillStyle = p.gold ? `rgba(220,186,120,${alpha})` : `rgba(235,230,220,${alpha * 0.6})`;
-      ctx.fill();
+      // прозрачность меняем одним числом, а не новой строкой цвета для каждой пылинки
+      ctx.globalAlpha = p.a * (0.6 + Math.sin(p.tw) * 0.4) * (p.gold ? 1 : 0.6);
+      ctx.fillStyle = p.gold ? '#dcba78' : '#ebe6dc';
+      const d = p.r * 2;
+      if (d < 2.2) ctx.fillRect(p.x - p.r, p.y - p.r, d, d);   // мелкие — квадратиком, глазу не видно разницы
+      else { ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2); ctx.fill(); }
     }
-    if (!reduceMotion) requestAnimationFrame(draw);
+    if (!reduceMotion && visible) requestAnimationFrame(draw);
   }
+
+  // главный экран ушёл с экрана — частицы засыпают
+  let visible = true;
+  new IntersectionObserver(([e]) => {
+    const was = visible; visible = e.isIntersecting;
+    if (visible && !was && !reduceMotion) requestAnimationFrame(draw);
+  }).observe(canvas.parentElement);
 
   canvas.parentElement.addEventListener('mousemove', (e) => {
     const r = canvas.getBoundingClientRect();
@@ -252,18 +263,22 @@ document.querySelectorAll('.reveal').forEach((el, i) => {
     });
     hero.addEventListener('mouseleave', () => { tx = ty = 0; });
   }
-  (function tick() {
+  let visible = true;
+  function tick() {
     cx += (tx - cx) * 0.06;
     cy += (ty - cy) * 0.06;
     const sy = window.scrollY;
-    if (sy < innerHeight * 1.3) {
-      for (const l of layers) {
-        const d = +l.dataset.depth, k = +l.dataset.scroll;
-        l.style.translate = `${(-cx * d * 34).toFixed(1)}px ${(-cy * d * 24 + sy * k).toFixed(1)}px`;
-      }
+    for (const l of layers) {
+      const d = +l.dataset.depth, k = +l.dataset.scroll;
+      l.style.translate = `${(-cx * d * 34).toFixed(1)}px ${(-cy * d * 24 + sy * k).toFixed(1)}px`;
     }
-    requestAnimationFrame(tick);
-  })();
+    if (visible) requestAnimationFrame(tick);
+  }
+  new IntersectionObserver(([e]) => {
+    const was = visible; visible = e.isIntersecting;
+    if (visible && !was) requestAnimationFrame(tick);
+  }).observe(hero);
+  tick();
 })();
 
 /* =========================================================
@@ -327,8 +342,12 @@ document.querySelectorAll('.reveal').forEach((el, i) => {
       feats.forEach((f) => f.classList.toggle('on', p >= +f.dataset.at));
       bar.style.transform = `scaleX(${p})`;
     }
-    requestAnimationFrame(update);
+    queued = false;
   }
+  let queued = false;
+  const request = () => { if (!queued) { queued = true; requestAnimationFrame(update); } };
+  window.addEventListener('scroll', request, { passive: true });
+  window.addEventListener('resize', request);
   update();
 })();
 
@@ -668,4 +687,15 @@ const Cart = (function () {
     t.innerHTML = 'Спасибо! <b>Отзыв добавлен</b>';
     t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2600);
   });
+})();
+
+
+/* =========================================================
+   БЫСТРОДЕЙСТВИЕ: анимации, которых не видно, ставим на паузу
+   ========================================================= */
+(function pauseHidden() {
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => e.target.classList.toggle('offscreen', !e.isIntersecting));
+  });
+  document.querySelectorAll('.hero, .marquee, .wall, .bundle').forEach((el) => io.observe(el));
 })();
