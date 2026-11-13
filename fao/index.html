@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FAO — защита данных в один клик</title>
+<meta name="description" content="FAO шифрует соединение и защищает ваши данные — дома, в кафе и в поездках. Без логов, на всех устройствах.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ===== Шапка ===== -->
+<header class="header">
+  <div class="container header-inner">
+    <a href="#top" class="logo" aria-label="FAO — на главную">
+      <svg class="logo-mark" viewBox="0 0 32 32" aria-hidden="true">
+        <path d="M16 2.5 4.5 7v8.2c0 7.3 4.9 12.6 11.5 14.3 6.6-1.7 11.5-7 11.5-14.3V7L16 2.5z" fill="currentColor"/>
+        <circle cx="16" cy="15.5" r="4" fill="var(--accent)"/>
+      </svg>
+      <span>FAO</span>
+    </a>
+    <nav class="nav" aria-label="Разделы">
+      <a href="#features">Преимущества</a>
+      <a href="#how">Как работает</a>
+      <a href="#servers">Серверы</a>
+      <a href="#pricing">Тарифы</a>
+      <a href="#faq">Вопросы</a>
+    </nav>
+    <a href="#pricing" class="btn btn-dark btn-sm">Подключиться</a>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- ===== Главный экран ===== -->
+<section class="hero">
+  <div class="container hero-inner">
+    <div class="hero-text">
+      <p class="pill"><span class="pill-dot"></span>Шифрование AES-256 · без логов</p>
+      <h1>Ваш интернет —<br><span class="accent-text">только ваш.</span></h1>
+      <p class="lead">FAO шифрует соединение и защищает личные данные дома, в кафе и в поездках. Одно нажатие — и вы под защитой.</p>
+      <div class="hero-actions">
+        <a href="#pricing" class="btn btn-accent">Подключиться</a>
+        <a href="#how" class="btn btn-ghost">Как это работает</a>
+      </div>
+      <ul class="hero-facts">
+        <li><b>12</b><span>стран</span></li>
+        <li><b>5</b><span>устройств</span></li>
+        <li><b>0</b><span>логов</span></li>
+      </ul>
+    </div>
+
+    <!-- живое мини-приложение -->
+    <div class="app" data-state="off">
+      <div class="app-top">
+        <span class="app-logo">FAO</span>
+        <span class="app-status"><i></i><span class="app-status-text">Не защищено</span></span>
+      </div>
+      <button class="power" aria-pressed="false" aria-label="Подключить защиту">
+        <span class="power-ring"></span>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v8" /><path d="M6.4 6.6a8 8 0 1 0 11.2 0" /></svg>
+      </button>
+      <p class="app-hint">Нажмите, чтобы подключиться</p>
+      <div class="app-info">
+        <div><span>Сервер</span><b>Нидерланды</b></div>
+        <div><span>Время</span><b class="app-timer">00:00:00</b></div>
+        <div><span>Ваш IP</span><b class="app-ip">открыт</b></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Преимущества ===== -->
+<section class="section" id="features">
+  <div class="container">
+    <div class="section-head reveal">
+      <p class="eyebrow">Преимущества</p>
+      <h2>Простая защита<br>без компромиссов</h2>
+    </div>
+    <div class="features">
+      <article class="feature reveal">
+        <span class="icon"><svg viewBox="0 0 24 24"><rect x="4.5" y="10.5" width="15" height="10" rx="2.5"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/></svg></span>
+        <h3>Шифрование</h3>
+        <p>Данные шифруются по стандарту AES-256 — тому же, что используют банки.</p>
+      </article>
+      <article class="feature reveal">
+        <span class="icon"><svg viewBox="0 0 24 24"><path d="M3 12s3.5-6.5 9-6.5S21 12 21 12s-3.5 6.5-9 6.5S3 12 3 12z"/><path d="M4 4l16 16"/></svg></span>
+        <h3>Без логов</h3>
+        <p>Мы не храним историю посещений и не знаем, что вы делаете в сети.</p>
+      </article>
+      <article class="feature reveal">
+        <span class="icon"><svg viewBox="0 0 24 24"><path d="M13 3 5 13.5h6L10 21l8-10.5h-6L13 3z"/></svg></span>
+        <h3>Высокая скорость</h3>
+        <p>Быстрые серверы и современный протокол — видео и звонки без задержек.</p>
+      </article>
+      <article class="feature reveal">
+        <span class="icon"><svg viewBox="0 0 24 24"><rect x="2.5" y="5" width="13" height="10" rx="1.5"/><path d="M6 19h6"/><rect x="17" y="8" width="4.5" height="11" rx="1.2"/></svg></span>
+        <h3>Все устройства</h3>
+        <p>Windows, macOS, iPhone и Android. Одна подписка — до 5 устройств.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Как это работает ===== -->
+<section class="section section-soft" id="how">
+  <div class="container">
+    <div class="section-head reveal">
+      <p class="eyebrow">Как это работает</p>
+      <h2>Три шага до защиты</h2>
+    </div>
+    <ol class="steps">
+      <li class="step reveal">
+        <span class="step-num">1</span>
+        <h3>Скачайте приложение</h3>
+        <p>Для компьютера или телефона — установка займёт минуту.</p>
+      </li>
+      <li class="step reveal">
+        <span class="step-num">2</span>
+        <h3>Нажмите «Подключить»</h3>
+        <p>FAO сам выберет самый быстрый сервер рядом с вами.</p>
+      </li>
+      <li class="step reveal">
+        <span class="step-num">3</span>
+        <h3>Пользуйтесь спокойно</h3>
+        <p>Соединение зашифровано — даже в открытом Wi-Fi.</p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ===== Серверы ===== -->
+<section class="section" id="servers">
+  <div class="container servers-wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow">Серверы</p>
+      <h2>12 стран.<br>Быстрые всегда.</h2>
+      <p class="lead">Приложение само подключит к серверу с наименьшей задержкой. А если нужно — выберите страну вручную.</p>
+    </div>
+    <ul class="servers reveal">
+      <!-- data-ping — задержка в миллисекундах, по ней рисуется индикатор -->
+      <li data-ping="18"><span class="code">NL</span>Нидерланды<em></em></li>
+      <li data-ping="21"><span class="code">DE</span>Германия<em></em></li>
+      <li data-ping="24"><span class="code">FI</span>Финляндия<em></em></li>
+      <li data-ping="27"><span class="code">SE</span>Швеция<em></em></li>
+      <li data-ping="29"><span class="code">FR</span>Франция<em></em></li>
+      <li data-ping="33"><span class="code">GB</span>Великобритания<em></em></li>
+      <li data-ping="38"><span class="code">TR</span>Турция<em></em></li>
+      <li data-ping="41"><span class="code">KZ</span>Казахстан<em></em></li>
+      <li data-ping="86"><span class="code">US</span>США<em></em></li>
+      <li data-ping="92"><span class="code">CA</span>Канада<em></em></li>
+      <li data-ping="118"><span class="code">JP</span>Япония<em></em></li>
+      <li data-ping="124"><span class="code">SG</span>Сингапур<em></em></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===== Тарифы ===== -->
+<section class="section section-soft" id="pricing">
+  <div class="container">
+    <div class="section-head center reveal">
+      <p class="eyebrow">Тарифы</p>
+      <h2>Чем дольше — тем выгоднее</h2>
+      <p class="lead">Во всех тарифах одинаковые возможности. 7 дней на возврат денег.</p>
+    </div>
+    <div class="plans">
+      <article class="plan reveal">
+        <h3>1 месяц</h3>
+        <p class="price"><b>299 ₽</b><span>/ мес</span></p>
+        <p class="plan-note">Оплата раз в месяц</p>
+        <ul class="plan-list">
+          <li>Все 12 стран</li><li>До 5 устройств</li><li>Поддержка 24/7</li>
+        </ul>
+        <button type="button" class="btn btn-ghost btn-block">Выбрать</button>
+      </article>
+      <article class="plan reveal">
+        <h3>6 месяцев</h3>
+        <p class="price"><b>249 ₽</b><span>/ мес</span></p>
+        <p class="plan-note">1 494 ₽ за полгода</p>
+        <ul class="plan-list">
+          <li>Все 12 стран</li><li>До 5 устройств</li><li>Поддержка 24/7</li>
+        </ul>
+        <button type="button" class="btn btn-ghost btn-block">Выбрать</button>
+      </article>
+      <article class="plan plan-best reveal">
+        <span class="plan-badge">Выгодно · −33%</span>
+        <h3>1 год</h3>
+        <p class="price"><b>199 ₽</b><span>/ мес</span></p>
+        <p class="plan-note">2 388 ₽ за год</p>
+        <ul class="plan-list">
+          <li>Все 12 стран</li><li>До 5 устройств</li><li>Поддержка 24/7</li>
+        </ul>
+        <button type="button" class="btn btn-accent btn-block">Выбрать</button>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Вопросы ===== -->
+<section class="section" id="faq">
+  <div class="container faq-wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow">Вопросы</p>
+      <h2>Частые вопросы</h2>
+      <p class="lead">Не нашли ответ? Напишите в поддержку — ответим за несколько минут.</p>
+    </div>
+    <div class="faq reveal">
+      <details>
+        <summary>Что такое VPN и зачем он нужен?</summary>
+        <p>VPN создаёт зашифрованное соединение между вашим устройством и интернетом. Так посторонние — например, в общественной сети Wi-Fi — не смогут перехватить ваши пароли, переписку и платёжные данные.</p>
+      </details>
+      <details>
+        <summary>Замедлит ли FAO интернет?</summary>
+        <p>Почти незаметно. Приложение автоматически выбирает ближайший сервер с наименьшей задержкой, поэтому видео, игры и звонки работают как обычно.</p>
+      </details>
+      <details>
+        <summary>Вы храните мои данные?</summary>
+        <p>Нет. Мы не ведём логи: не сохраняем историю посещений, IP-адреса и содержимое трафика.</p>
+      </details>
+      <details>
+        <summary>На скольких устройствах можно пользоваться?</summary>
+        <p>Одна подписка работает одновременно на 5 устройствах: компьютерах, телефонах и планшетах.</p>
+      </details>
+      <details>
+        <summary>Можно ли вернуть деньги?</summary>
+        <p>Да. Если сервис не подошёл, напишите в поддержку в течение 7 дней после оплаты — вернём деньги полностью.</p>
+      </details>
+      <details>
+        <summary>Законно ли пользоваться VPN?</summary>
+        <p>VPN — это инструмент защиты данных. Используйте его в соответствии с законами страны, в которой находитесь.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Призыв ===== -->
+<section class="cta">
+  <div class="container cta-inner reveal">
+    <h2>Защитите данные<br>уже сегодня</h2>
+    <a href="#pricing" class="btn btn-accent">Подключиться</a>
+  </div>
+</section>
+
+</main>
+
+<!-- ===== Подвал ===== -->
+<footer class="footer">
+  <div class="container footer-inner">
+    <a href="#top" class="logo" aria-label="FAO — наверх">
+      <svg class="logo-mark" viewBox="0 0 32 32" aria-hidden="true">
+        <path d="M16 2.5 4.5 7v8.2c0 7.3 4.9 12.6 11.5 14.3 6.6-1.7 11.5-7 11.5-14.3V7L16 2.5z" fill="currentColor"/>
+        <circle cx="16" cy="15.5" r="4" fill="var(--accent)"/>
+      </svg>
+      <span>FAO</span>
+    </a>
+    <nav class="footer-nav" aria-label="Подвал">
+      <a href="#features">Преимущества</a>
+      <a href="#pricing">Тарифы</a>
+      <a href="#faq">Вопросы</a>
+      <a href="mailto:support@fao.example">Поддержка</a>
+    </nav>
+    <p class="footer-copy">© 2026 FAO</p>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
