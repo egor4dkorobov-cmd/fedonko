@@ -292,3 +292,16 @@ h3 { font-size: 20px; letter-spacing: -0.015em; line-height: 1.25; }
   html { scroll-behavior: auto; }
   .reveal { opacity: 1; transform: none; }
 }
+
+/* ===== Флаги и порядок серверов ===== */
+.flag {
+  width: 36px; height: 24px; flex-shrink: 0;
+  border-radius: 5px; overflow: hidden;
+  box-shadow: 0 0 0 1px rgba(15,22,20,.08);   /* тонкая рамка, чтобы белые флаги не сливались с фоном */
+}
+.flag svg { width: 100%; height: 100%; }
+/* читаем сверху вниз: левая колонка — самые быстрые, правая — следующие */
+.servers { grid-auto-flow: column; grid-template-rows: repeat(var(--rows, 6), auto); }
+@media (max-width: 720px) {
+  .servers { grid-auto-flow: row; grid-template-rows: none; }
+}

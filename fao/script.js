@@ -54,6 +54,16 @@ onScroll();
   });
 })();
 
+/* ===== Серверы: сортируем по пингу — от самого быстрого ===== */
+(function sortServers() {
+  const list = document.querySelector('.servers');
+  [...list.children]
+    .sort((a, b) => a.dataset.ping - b.dataset.ping)
+    .forEach((li) => list.appendChild(li));
+  // сколько строк в колонке — половина списка (чтобы читалось сверху вниз)
+  list.style.setProperty('--rows', Math.ceil(list.children.length / 2));
+})();
+
 /* ===== Индикатор пинга у серверов ===== */
 document.querySelectorAll('.servers li').forEach((li) => {
   const ping = +li.dataset.ping;
