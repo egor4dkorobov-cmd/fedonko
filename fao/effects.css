@@ -1,0 +1,110 @@
+/* ======================================================
+   ФОН «НИТИ» + ДОПОЛНИТЕЛЬНЫЕ АНИМАЦИИ
+   Цвета, шрифты и раскладка сайта не меняются.
+   ====================================================== */
+
+/* --- холст с дымчатыми нитями: в первом экране и в нижнем винном блоке --- */
+.threads {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  z-index: 0; pointer-events: none;
+  opacity: 0; transition: opacity 1.4s ease;
+}
+.threads.ready { opacity: 1; }
+
+/* --- тонкая полоса прогресса прокрутки --- */
+.scroll-bar {
+  position: fixed; left: 0; top: 0; z-index: 60;
+  width: 100%; height: 2px; background: var(--grad);
+  transform-origin: 0 50%; transform: scaleX(0); pointer-events: none;
+}
+
+/* --- первый экран: появление по очереди --- */
+@keyframes riseIn { from { opacity: 0; transform: translateY(22px); } }
+@keyframes dropIn { from { opacity: 0; transform: translateY(-100%); } }
+@keyframes popIn  { from { opacity: 0; transform: scale(.5); } 60% { transform: scale(1.12); } }
+.header { animation: dropIn .7s cubic-bezier(.2,.8,.2,1) backwards; }
+.hero-text > * { animation: riseIn .9s cubic-bezier(.2,.8,.2,1) backwards; }
+.hero-text > :nth-child(1) { animation-delay: .10s; }
+.hero-text > :nth-child(2) { animation-delay: .20s; }
+.hero-text > :nth-child(3) { animation-delay: .32s; }
+.hero-text > :nth-child(4) { animation-delay: .44s; }
+.hero-text > :nth-child(5) { animation-delay: .56s; }
+.flag-stack > * { animation: popIn .5s cubic-bezier(.3,1.4,.5,1) backwards; }
+.flag-stack > :nth-child(1) { animation-delay: .95s; }
+.flag-stack > :nth-child(2) { animation-delay: 1.02s; }
+.flag-stack > :nth-child(3) { animation-delay: 1.09s; }
+.flag-stack > :nth-child(4) { animation-delay: 1.16s; }
+.flag-stack > :nth-child(5) { animation-delay: 1.23s; }
+.dev { animation: popIn .5s cubic-bezier(.3,1.4,.5,1) backwards; }
+.dev:nth-child(1) { animation-delay: 1.05s; }
+.dev:nth-child(2) { animation-delay: 1.12s; }
+.dev:nth-child(3) { animation-delay: 1.19s; }
+.dev:nth-child(4) { animation-delay: 1.26s; }
+
+/* мягкое свечение первого экрана чуть смещается за курсором */
+.hero-center::before {
+  transform: translate(calc(-50% + var(--gx, 0px)), calc(-50% + var(--gy, 0px)));
+  transition: transform .9s cubic-bezier(.2,.8,.2,1);
+}
+
+/* перелив в словах «только ваш.» и пульс точки в плашке */
+@keyframes sheen { to { background-position: 100% 0; } }
+h1 .accent-text {
+  background-image: linear-gradient(110deg, #6d28d9 0%, #db2777 50%, #6d28d9 100%);
+  background-size: 200% 100%;
+  animation: sheen 6s ease-in-out infinite alternate;
+}
+@keyframes dotPulse { from { transform: scale(1); opacity: .7; } to { transform: scale(3.4); opacity: 0; } }
+.pill-dot { position: relative; }
+.pill-dot::after {
+  content: ""; position: absolute; inset: 0; border-radius: 50%; background: inherit;
+  animation: dotPulse 2.2s ease-out infinite;
+}
+
+/* --- кнопки: блик при наведении --- */
+.btn-accent, .btn-dark { position: relative; overflow: hidden; }
+.btn-accent::after, .btn-dark::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(105deg, transparent 35%, rgba(255,255,255,.3) 50%, transparent 65%);
+  transform: translateX(-120%); transition: transform .7s ease;
+}
+.btn-accent:hover::after, .btn-dark:hover::after { transform: translateX(120%); }
+@keyframes nudge { 0%, 60%, 100% { transform: none; } 80% { transform: translateX(5px); } }
+.cta .btn-arrow { animation: nudge 2.6s ease-in-out infinite; }
+.cta .btn-xl:hover .btn-arrow { animation: none; }
+
+/* --- карточки: свет под курсором и лёгкий подъём --- */
+.feature::after, .step::after, .plan::after {
+  content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+  background: radial-gradient(280px circle at var(--mx, 50%) var(--my, 50%), rgba(219,39,119,.10), rgba(109,40,217,.05) 45%, transparent 70%);
+  opacity: 0; transition: opacity .35s ease;
+}
+.feature:hover::after, .step:hover::after, .plan:hover::after { opacity: 1; }
+.step:not(.reveal), .plan:not(.reveal) { transition: transform .3s cubic-bezier(.2,.8,.2,1), box-shadow .3s ease; }
+.step:not(.reveal):hover { transform: translateY(-3px); box-shadow: 0 24px 50px -32px rgba(109,40,217,.5); }
+.plan:not(.reveal):hover { transform: translateY(-4px); box-shadow: 0 30px 60px -36px rgba(109,40,217,.55); }
+.plan-best:not(.reveal):hover { box-shadow: 0 34px 64px -32px rgba(219,39,119,.7); }
+.included-list .icon { transition: transform .4s cubic-bezier(.3,1.4,.5,1); }
+.included-list li:hover .icon { transform: translateY(-3px) rotate(-6deg); }
+
+/* --- шаги: номера «выпрыгивают» по очереди --- */
+.step.in .step-num { animation: popIn .6s cubic-bezier(.3,1.4,.5,1) backwards; }
+.step.in:nth-child(1) .step-num { animation-delay: .20s; }
+.step.in:nth-child(2) .step-num { animation-delay: .32s; }
+.step.in:nth-child(3) .step-num { animation-delay: .44s; }
+
+/* --- серверы: строки и полоски пинга появляются по очереди --- */
+@keyframes rowIn { from { opacity: 0; transform: translateY(10px); } }
+@keyframes barUp { from { transform: scaleY(0); } }
+.servers.in li { animation: rowIn .5s cubic-bezier(.2,.8,.2,1) backwards; animation-delay: calc(var(--i, 0) * 45ms); }
+.servers li { transition: border-color .25s, transform .25s; }
+.servers li:hover { border-color: #e3c4d3; transform: translateX(3px); }
+.bars i { transform-origin: 50% 100%; }
+.servers.in .bars i { animation: barUp .45s cubic-bezier(.3,1.4,.5,1) backwards; animation-delay: calc(var(--i, 0) * 45ms + 350ms); }
+.servers.in .bars i:nth-child(2) { animation-delay: calc(var(--i, 0) * 45ms + 430ms); }
+.servers.in .bars i:nth-child(3) { animation-delay: calc(var(--i, 0) * 45ms + 510ms); }
+.price b { font-variant-numeric: tabular-nums; }
+
+/* --- вопросы: ответ плавно выезжает --- */
+@keyframes faqIn { from { opacity: 0; transform: translateY(-8px); } }
+.faq details[open] p { animation: faqIn .4s cubic-bezier(.2,.8,.2,1); }

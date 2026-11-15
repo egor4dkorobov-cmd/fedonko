@@ -823,3 +823,21 @@ button.fs-more {
   .hero-center { padding: 48px 0 80px; }
   .hero-center::before { top: 38%; }
 }
+
+/* ===== Кнопка «Войти» в личный кабинет ===== */
+.header-actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+.login-link { display: inline-flex; align-items: center; gap: 7px; height: 42px; padding: 0 14px; border-radius: 999px; color: var(--text); font-size: 15px; font-weight: 600; transition: background .2s, color .2s; }
+.login-link svg { width: 19px; height: 19px; fill: none; stroke: currentColor; stroke-width: 1.9; stroke-linecap: round; }
+.login-link:hover { background: var(--soft); color: var(--accent); }
+.login-link:focus-visible { outline: 3px solid rgba(219,39,119,.45); outline-offset: 2px; }
+.header.on-dark .login-link { color: #e9dff5; }
+.header.on-dark .login-link:hover { background: rgba(255,255,255,.1); color: #fff; }
+@media (max-width: 420px) {
+  .login-link { padding: 0 10px; }
+  .login-link span { display: none; }      /* на узком телефоне — только значок */
+  .login-link { width: 42px; justify-content: center; padding: 0; }
+}
+@media (max-width: 360px) {
+  .header-actions { gap: 4px; }
+  .header-actions .btn-sm { padding: 0 14px; font-size: 14px; }
+}

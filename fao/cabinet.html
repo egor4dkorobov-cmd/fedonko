@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Личный кабинет — FAO</title>
+<meta name="description" content="Личный кабинет FAO: баланс, подписка, устройства и реферальная программа.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#fbf4f7">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%236d28d9'/%3E%3Cstop offset='1' stop-color='%23db2777'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M16 2.5 4.5 7v8.2c0 7.3 4.9 12.6 11.5 14.3 6.6-1.7 11.5-7 11.5-14.3V7L16 2.5z' fill='%233b0d22'/%3E%3Ccircle cx='16' cy='15.5' r='4.5' fill='url(%23g)'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="cabinet.css?v=202611151944">
+</head>
+<body>
+
+<!-- общий градиент для иконок и кольца подписки -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="gradFV" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#6d28d9"/><stop offset="1" stop-color="#db2777"/>
+    </linearGradient>
+  </defs>
+</svg>
+
+<!-- ===== Шапка ===== -->
+<header class="top">
+  <div class="wrap top-inner">
+    <a href="index.html" class="logo" aria-label="FAO — на сайт">
+      <svg class="logo-mark" viewBox="0 0 32 32" aria-hidden="true">
+        <path d="M16 2.5 4.5 7v8.2c0 7.3 4.9 12.6 11.5 14.3 6.6-1.7 11.5-7 11.5-14.3V7L16 2.5z" fill="currentColor"/>
+        <circle cx="16" cy="15.5" r="4" fill="#db2777"/>
+      </svg>
+      <span>FAO</span>
+    </a>
+    <div class="top-right">
+      <a href="index.html" class="link-back">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>На сайт
+      </a>
+      <div class="user" hidden>
+        <span class="avatar" aria-hidden="true"></span>
+        <span class="user-email"></span>
+        <button type="button" class="btn btn-ghost btn-sm js-logout">Выйти</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ===== Вход ===== -->
+<section class="auth" id="auth" hidden>
+  <div class="auth-card">
+    <svg class="auth-mark" viewBox="0 0 32 32" aria-hidden="true">
+      <path d="M16 2.5 4.5 7v8.2c0 7.3 4.9 12.6 11.5 14.3 6.6-1.7 11.5-7 11.5-14.3V7L16 2.5z" fill="#3b0d22"/>
+      <circle cx="16" cy="15.5" r="4.5" fill="url(#gradFV)"/>
+    </svg>
+
+    <!-- шаг 1: почта -->
+    <form class="auth-step" id="step-email" novalidate>
+      <h1>Вход в кабинет</h1>
+      <p class="muted">Введите почту — пришлём код для входа. Пароль не нужен.</p>
+      <label class="field">
+        <span>Почта</span>
+        <input type="email" name="email" autocomplete="email" inputmode="email" placeholder="you@mail.ru" required>
+      </label>
+      <p class="form-error" role="alert"></p>
+      <button type="submit" class="btn btn-accent btn-block">Получить код</button>
+    </form>
+
+    <!-- шаг 2: код -->
+    <form class="auth-step" id="step-code" novalidate hidden>
+      <h1>Введите код</h1>
+      <p class="muted">Отправили 4 цифры на <b class="sent-to"></b></p>
+      <div class="code-boxes" role="group" aria-label="Код из письма">
+        <input inputmode="numeric" maxlength="1" aria-label="Цифра 1" autocomplete="one-time-code">
+        <input inputmode="numeric" maxlength="1" aria-label="Цифра 2">
+        <input inputmode="numeric" maxlength="1" aria-label="Цифра 3">
+        <input inputmode="numeric" maxlength="1" aria-label="Цифра 4">
+      </div>
+      <p class="form-error" role="alert"></p>
+      <button type="submit" class="btn btn-accent btn-block">Войти</button>
+      <button type="button" class="link-btn js-change-email">Изменить почту</button>
+    </form>
+
+    <p class="demo-note">Это демо-версия кабинета: подойдёт любая почта и любой код.</p>
+  </div>
+</section>
+
+<!-- ===== Кабинет ===== -->
+<section class="dash" id="dash" hidden>
+  <div class="wrap">
+    <div class="dash-head">
+      <div>
+        <p class="eyebrow">Личный кабинет</p>
+        <h1 class="hello">Здравствуйте!</h1>
+      </div>
+      <p class="demo-pill">Демо-режим · данные примерные</p>
+    </div>
+
+    <div class="grid">
+
+      <!-- Подписка -->
+      <article class="card card-sub" aria-labelledby="t-sub">
+        <div class="card-top">
+          <h2 id="t-sub">Подписка</h2>
+          <span class="status"><i></i><span class="status-text"></span></span>
+        </div>
+        <div class="sub-body">
+          <div class="ring" aria-hidden="true">
+            <svg viewBox="0 0 120 120">
+              <circle class="ring-bg" cx="60" cy="60" r="52"/>
+              <circle class="ring-fg" cx="60" cy="60" r="52" pathLength="100"/>
+            </svg>
+            <div class="ring-text"><b class="days-left">0</b><span class="days-word">дней</span></div>
+          </div>
+          <div class="sub-info">
+            <p class="sub-until"></p>
+            <p class="muted sub-plan"></p>
+            <ul class="sub-perks">
+              <li>12 стран</li><li>До 5 устройств</li><li>Без логов</li>
+            </ul>
+            <button type="button" class="btn btn-accent js-open-plans">Продлить подписку</button>
+          </div>
+        </div>
+      </article>
+
+      <!-- Баланс -->
+      <article class="card card-balance" aria-labelledby="t-bal">
+        <div class="card-top">
+          <h2 id="t-bal">Баланс</h2>
+          <svg class="card-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="18" height="13" rx="3"/><path d="M3 10h18M16 14.5h2"/></svg>
+        </div>
+        <p class="balance"><b class="balance-num">0</b> <span>₽</span></p>
+        <p class="muted small">Деньги на балансе идут на оплату подписки. Сюда же приходят 10% от оплат ваших друзей.</p>
+        <button type="button" class="btn btn-dark btn-block js-open-topup">Пополнить</button>
+      </article>
+
+      <!-- Рефералы -->
+      <article class="card card-ref" aria-labelledby="t-ref">
+        <div class="card-top">
+          <h2 id="t-ref">Пригласите друзей</h2>
+          <span class="badge">10% от оплат</span>
+        </div>
+        <p class="muted">Отправьте ссылку другу. Каждый раз, когда он оплачивает подписку, мы зачисляем вам на баланс <b class="ink">10% от суммы</b> — без ограничений по времени.</p>
+        <div class="ref-link">
+          <input class="ref-input" readonly aria-label="Ваша реферальная ссылка">
+          <button type="button" class="btn btn-accent js-copy">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2.5"/><path d="M16 8V6.5A2.5 2.5 0 0 0 13.5 4h-7A2.5 2.5 0 0 0 4 6.5v7A2.5 2.5 0 0 0 6.5 16H8"/></svg>
+            <span>Скопировать</span>
+          </button>
+          <a class="btn btn-ghost js-share" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.5 3.5 2.8 10.7c-.9.4-.9 1.6.1 1.9l4.6 1.5 1.8 5.6c.3.8 1.3 1 1.9.4l2.6-2.4 4.7 3.5c.7.5 1.7.1 1.9-.7L23 4.7c.2-.9-.7-1.6-1.5-1.2z"/><path d="m7.6 14.1 9.6-6.3-6.9 7.2"/></svg>
+            <span>Отправить в Telegram</span>
+          </a>
+        </div>
+        <div class="ref-stats">
+          <div><b class="st-invited">0</b><span>Приглашено</span></div>
+          <div><b class="st-paid">0</b><span>Оплатили</span></div>
+          <div><b class="st-earned">0 ₽</b><span>Заработано</span></div>
+        </div>
+        <div class="ref-list-head">
+          <h3>Ваши друзья</h3>
+          <button type="button" class="link-btn js-demo-pay" title="Только для демонстрации">▶ Демо: друг оплатил год</button>
+        </div>
+        <ul class="ref-list"></ul>
+      </article>
+
+      <!-- Устройства -->
+      <article class="card card-dev" aria-labelledby="t-dev">
+        <div class="card-top">
+          <h2 id="t-dev">Устройства</h2>
+          <span class="dev-count muted"></span>
+        </div>
+        <div class="dev-bar" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+        <ul class="dev-list"></ul>
+        <button type="button" class="btn btn-ghost btn-block js-add-dev">+ Подключить устройство</button>
+      </article>
+
+      <!-- История платежей -->
+      <article class="card card-hist" aria-labelledby="t-hist">
+        <div class="card-top">
+          <h2 id="t-hist">История платежей</h2>
+        </div>
+        <ul class="hist-list"></ul>
+      </article>
+    </div>
+
+    <p class="reset-row"><button type="button" class="link-btn js-reset">Сбросить демо-данные</button></p>
+  </div>
+</section>
+
+</main>
+
+<!-- ===== Окно: продление подписки ===== -->
+<div class="modal" id="m-plans" role="dialog" aria-modal="true" aria-labelledby="mp-title" hidden>
+  <div class="modal-box">
+    <button type="button" class="modal-x js-close" aria-label="Закрыть">✕</button>
+    <h2 id="mp-title">Продлить подписку</h2>
+    <p class="muted">Новый срок добавится к текущему — ни один день не пропадёт.</p>
+    <div class="plans" role="radiogroup" aria-label="Тариф">
+      <label class="plan-opt"><input type="radio" name="plan" value="1"><span class="po-name">1 месяц</span><span class="po-price">299 ₽</span><span class="po-note">299 ₽ / мес</span></label>
+      <label class="plan-opt"><input type="radio" name="plan" value="6"><span class="po-name">6 месяцев</span><span class="po-price">1 494 ₽</span><span class="po-note">249 ₽ / мес · −17%</span></label>
+      <label class="plan-opt best"><input type="radio" name="plan" value="12" checked><span class="po-name">1 год</span><span class="po-price">2 388 ₽</span><span class="po-note">199 ₽ / мес · −33%</span></label>
+    </div>
+    <div class="pay-sum">
+      <span>На балансе <b class="ps-balance">0 ₽</b></span>
+      <span>К оплате <b class="ps-price">0 ₽</b></span>
+    </div>
+    <p class="pay-warn" role="alert" hidden></p>
+    <button type="button" class="btn btn-accent btn-block js-pay">Оплатить с баланса</button>
+  </div>
+</div>
+
+<!-- ===== Окно: пополнение ===== -->
+<div class="modal" id="m-topup" role="dialog" aria-modal="true" aria-labelledby="mt-title" hidden>
+  <div class="modal-box">
+    <button type="button" class="modal-x js-close" aria-label="Закрыть">✕</button>
+    <h2 id="mt-title">Пополнить баланс</h2>
+    <div class="chips" role="group" aria-label="Сумма">
+      <button type="button" class="chip" data-sum="300">300 ₽</button>
+      <button type="button" class="chip" data-sum="500">500 ₽</button>
+      <button type="button" class="chip" data-sum="1000">1 000 ₽</button>
+      <button type="button" class="chip" data-sum="2500">2 500 ₽</button>
+    </div>
+    <label class="field">
+      <span>Или своя сумма</span>
+      <input type="number" class="topup-input" min="100" max="50000" step="1" inputmode="numeric" placeholder="от 100 до 50 000 ₽">
+    </label>
+    <p class="form-error" role="alert"></p>
+    <button type="button" class="btn btn-accent btn-block js-topup">Пополнить</button>
+    <p class="demo-note">В демо деньги зачисляются сразу, без оплаты картой.</p>
+  </div>
+</div>
+
+<div class="toast" role="status" aria-live="polite"></div>
+
+<script src="cabinet.js?v=202611151944"></script>
+</body>
+</html>
