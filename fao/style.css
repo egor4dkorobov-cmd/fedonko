@@ -350,3 +350,32 @@ h3 { font-size: 20px; letter-spacing: -0.015em; line-height: 1.25; }
 .cta .btn-accent:hover { filter: brightness(1.08); }
 .btn:focus-visible, .nav a:focus-visible, summary:focus-visible, .power:focus-visible { outline-color: rgba(219,39,119,.45); }
 .feature { background: #fff; }
+
+/* ===== Тарифы: короткие карточки + блок «Во всех тарифах» ===== */
+.plan-tag { margin: 18px 0 26px; padding-top: 18px; border-top: 1px solid var(--line); font-size: 15px; font-weight: 600; color: var(--text); flex: 1; }
+.plan-best .plan-tag { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+.included {
+  max-width: 1000px; margin: 28px auto 0;
+  padding: 40px 44px;
+  background: #fff; border: 1px solid var(--line); border-radius: 24px;
+}
+.included-head { display: flex; justify-content: space-between; align-items: baseline; gap: 20px; flex-wrap: wrap; padding-bottom: 28px; margin-bottom: 32px; border-bottom: 1px solid var(--line); }
+.included-head h3 { font-size: 26px; }
+.included-head p { color: var(--muted); font-size: 15px; }
+.included-list { list-style: none; display: grid; grid-template-columns: repeat(3, 1fr); gap: 34px 40px; }
+.included-list li { display: flex; gap: 16px; align-items: flex-start; }
+.included-list .icon { margin: 0; flex-shrink: 0; width: 44px; height: 44px; border-radius: 13px; background: var(--grad); color: #fff; box-shadow: 0 10px 20px -10px rgba(219,39,119,.7); }
+.included-list .icon svg { width: 22px; height: 22px; }
+.included-list h4 { font-size: 17px; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 4px; }
+.included-list p { color: var(--muted); font-size: 14.5px; line-height: 1.5; }
+
+@media (max-width: 1000px) {
+  .included-list { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 720px) {
+  .included { padding: 28px 22px; margin-top: 20px; }
+  .included-head { flex-direction: column; gap: 6px; padding-bottom: 22px; margin-bottom: 24px; }
+  .included-head h3 { font-size: 22px; }
+  .included-list { grid-template-columns: 1fr; gap: 24px; }
+}
