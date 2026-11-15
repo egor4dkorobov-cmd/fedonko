@@ -379,3 +379,63 @@ h3 { font-size: 20px; letter-spacing: -0.015em; line-height: 1.25; }
   .included-head h3 { font-size: 22px; }
   .included-list { grid-template-columns: 1fr; gap: 24px; }
 }
+
+/* ===== Главный экран: плашка «12 стран · все устройства» ===== */
+.hero-trust {
+  display: inline-flex; align-items: center; gap: 0;
+  margin-top: 48px;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  box-shadow: 0 20px 40px -28px rgba(59,13,34,.35);
+}
+.trust-item { display: flex; align-items: center; gap: 14px; padding: 16px 22px; }
+.trust-item + .trust-item { border-left: 1px solid var(--line); }
+.trust-text b { display: block; font-size: 16px; font-weight: 700; letter-spacing: -0.01em; line-height: 1.2; }
+.trust-text span { color: var(--muted); font-size: 13px; }
+
+/* стопка флагов: наезжают друг на друга, при наведении раздвигаются */
+.flag-stack { display: flex; align-items: center; }
+.fs-flag, .fs-more {
+  width: 32px; height: 32px; border-radius: 50%; overflow: hidden; flex-shrink: 0;
+  border: 2.5px solid #fff;
+  box-shadow: 0 2px 6px rgba(59,13,34,.15);
+  margin-left: -10px;
+  transition: margin .35s cubic-bezier(.2,.8,.2,1), transform .35s cubic-bezier(.2,.8,.2,1);
+}
+.fs-flag:first-child { margin-left: 0; }
+.fs-flag svg { width: 100%; height: 100%; transform: scale(1.5); }   /* флаг на весь кружок */
+.fs-more { display: grid; place-items: center; background: var(--grad); color: #fff; font-size: 11px; font-weight: 700; }
+.trust-flags:hover .fs-flag, .trust-flags:hover .fs-more { margin-left: 3px; }
+.trust-flags:hover .fs-flag:first-child { margin-left: 0; }
+.trust-flags:hover .fs-flag:nth-child(odd) { transform: translateY(-3px); }
+
+/* иконки устройств */
+.dev-row { display: flex; gap: 4px; }
+.dev {
+  width: 32px; height: 32px; display: grid; place-items: center;
+  border-radius: 10px; background: #f6e8f8; color: var(--accent);
+  transition: background .25s, color .25s, transform .25s;
+}
+.dev svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.trust-item:hover .dev { background: var(--grad); color: #fff; }
+.trust-item:hover .dev:nth-child(2) { transition-delay: .05s; }
+.trust-item:hover .dev:nth-child(3) { transition-delay: .1s; }
+.trust-item:hover .dev:nth-child(4) { transition-delay: .15s; }
+
+@media (max-width: 720px) {
+  .hero-trust { display: flex; flex-direction: column; align-items: stretch; width: 100%; margin-top: 36px; }
+  .trust-item + .trust-item { border-left: 0; border-top: 1px solid var(--line); }
+}
+/* плашка компактнее: подписи в одну строку */
+.trust-item { padding: 14px 20px; gap: 12px; }
+.trust-text b, .trust-text span { white-space: nowrap; line-height: 1.35; }
+.trust-text span { display: block; }
+.fs-flag, .fs-more { width: 30px; height: 30px; margin-left: -11px; }
+.dev-row { gap: 3px; }
+.dev { width: 28px; height: 28px; border-radius: 8px; }
+.dev svg { width: 15px; height: 15px; }
+@media (max-width: 1160px) and (min-width: 1001px) {
+  .hero-trust { flex-direction: column; align-items: stretch; }
+  .trust-item + .trust-item { border-left: 0; border-top: 1px solid var(--line); }
+}
