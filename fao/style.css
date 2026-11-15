@@ -733,3 +733,44 @@ button.fs-more {
 }
 .faq summary:hover { color: var(--accent-dark); }
 .faq summary { transition: color .2s; }
+
+/* ======================================================
+   НИЗ САЙТА: сплошная винная область на всю ширину
+   (призыв «Защитите данные» + подвал)
+   ====================================================== */
+.cta {
+  position: relative; overflow: hidden;
+  padding: 120px 0 110px;
+  background: linear-gradient(135deg, #3b0d22 0%, #2c0c1e 55%, #24092a 100%);
+  color: #fff;
+}
+/* свечение справа, как было в карточке, только крупнее */
+.cta::after {
+  content: ""; position: absolute; right: -10%; top: -45%;
+  width: min(900px, 80vw); aspect-ratio: 1; border-radius: 50%;
+  background: radial-gradient(circle, rgba(219,39,119,.42), rgba(109,40,217,.22) 42%, transparent 68%);
+  pointer-events: none;
+}
+.cta-inner {
+  background: none; border-radius: 0; padding: 0; overflow: visible;
+  position: relative; z-index: 1;
+}
+.cta-inner::after { display: none; }
+.cta h2 { font-size: clamp(36px, 5vw, 64px); }
+
+.footer {
+  position: relative;
+  background: #24092a;
+  border-top: 1px solid rgba(255,255,255,.1);
+  color: #fff;
+  padding: 32px 0 36px;
+}
+.footer .logo, .footer .logo-mark { color: #fff; }
+.footer-nav a { color: #cdb3c4; }
+.footer-nav a:hover { color: #fff; }
+.footer-copy { color: #a98aa0; }
+
+@media (max-width: 720px) {
+  .cta { padding: 80px 0 72px; }
+  .cta::after { width: 130vw; right: -55%; top: -30%; }
+}
