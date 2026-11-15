@@ -691,3 +691,25 @@ button.fs-more {
 .nav a:focus-visible { outline: none; }
 /* над тёмным блоком с планетой обводка светлее */
 .header.on-dark .nav a::before { background: linear-gradient(135deg, #a855f7, #ec4899); }
+
+/* ===== Преимущества: фиолетовые квадраты и рамка с переливом при наведении ===== */
+.feature .icon {
+  background: linear-gradient(135deg, #7c3aed, #6d28d9);
+  color: #fff;
+  box-shadow: 0 10px 22px -12px rgba(109,40,217,.8);
+  transition: transform .35s cubic-bezier(.3,1.4,.5,1), box-shadow .3s;
+}
+.feature { position: relative; }
+.feature::before {
+  content: ""; position: absolute; inset: -1px; border-radius: inherit;
+  padding: 2px;                                     /* толщина рамки */
+  background: var(--grad);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  opacity: 0; transition: opacity .3s ease;
+  pointer-events: none;
+}
+.feature:hover { border-color: transparent; box-shadow: 0 24px 50px -30px rgba(109,40,217,.55); }
+.feature:hover::before { opacity: 1; }
+.feature:hover .icon { transform: scale(1.06); box-shadow: 0 14px 26px -12px rgba(109,40,217,.9); }
