@@ -95,10 +95,15 @@ h1, h2, h3 { letter-spacing: -0.025em; line-height: 1.15; }
 
 .grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 20px; }
 .card { background: #fff; border: 1px solid var(--line); border-radius: 24px; padding: 26px 28px; display: flex; flex-direction: column; gap: 16px; min-width: 0; }
-.card-sub { grid-column: span 8; }
-.card-balance { grid-column: span 4; }
+/* компьютер: «Подписка» — узкая вертикальная карточка слева, рядом «Пригласите друзей»;
+   ниже — «Баланс» и «Устройства» */
+.card-sub { grid-column: span 4; }
 .card-ref { grid-column: span 8; }
-.card-dev { grid-column: span 4; }
+.card-balance { grid-column: span 4; }
+.card-dev { grid-column: span 8; }
+@media (min-width: 1001px) {
+  .card-sub { order: 1; } .card-ref { order: 2; } .card-balance { order: 3; } .card-dev { order: 4; } .card-hist { order: 5; }
+}
 .card-hist { grid-column: span 12; }
 .card-top { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
 .card h2 { font-size: 20px; }
@@ -111,7 +116,8 @@ h1, h2, h3 { letter-spacing: -0.025em; line-height: 1.15; }
 .status.off { background: #fdece4; color: var(--bad); }
 .status.on i { box-shadow: 0 0 0 0 rgba(15,157,99,.5); animation: live 2s infinite; }
 @keyframes live { 70% { box-shadow: 0 0 0 7px rgba(15,157,99,0); } 100% { box-shadow: 0 0 0 0 rgba(15,157,99,0); } }
-.sub-body { display: flex; align-items: center; gap: 32px; }
+.sub-body { display: flex; flex-direction: column; justify-content: center; align-items: stretch; gap: 18px; text-align: center; flex: 1; }
+.ring { margin: 0 auto; }
 .ring { position: relative; width: 150px; height: 150px; flex-shrink: 0; }
 .ring svg { width: 100%; height: 100%; transform: rotate(-90deg); }
 .ring circle { fill: none; stroke-width: 11; stroke-linecap: round; }
@@ -120,15 +126,15 @@ h1, h2, h3 { letter-spacing: -0.025em; line-height: 1.15; }
 .ring-text { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
 .ring-text b { font-size: 38px; line-height: 1; letter-spacing: -0.04em; }
 .ring-text span { font-size: 13px; color: var(--muted); }
-.sub-info { flex: 1; display: flex; flex-direction: column; align-items: flex-start; gap: 8px; min-width: 0; }
-.sub-body > .btn { flex-shrink: 0; }
+.sub-info { display: flex; flex-direction: column; align-items: center; gap: 8px; min-width: 0; }
+.sub-body > .btn { width: 100%; margin-top: 6px; }
 .sub-until { font-size: 22px; font-weight: 700; letter-spacing: -0.02em; }
 /* блок с тарифом внизу — в градиентной рамке */
-.sub-facts { display: grid; grid-template-columns: 1fr 1fr; gap: 0; padding: 14px 20px; border: 1.5px solid transparent; border-radius: 16px; background: linear-gradient(#fdf7fa, #fdf7fa) padding-box, var(--grad) border-box; }
+.sub-facts { text-align: left; display: grid; grid-template-columns: 1fr 1fr; gap: 0; padding: 14px 20px; border: 1.5px solid transparent; border-radius: 16px; background: linear-gradient(#fdf7fa, #fdf7fa) padding-box, var(--grad) border-box; }
 .sub-facts > div + div { padding-left: 20px; border-left: 1px solid #ecd6e2; }
 .sub-facts dt { font-size: 12.5px; color: var(--muted); }
 .sub-facts dd { font-size: 15.5px; font-weight: 600; }
-.sub-hint { display: flex; gap: 8px; align-items: flex-start; font-size: 14px; color: var(--muted); max-width: 46ch; }
+.sub-hint { display: flex; gap: 8px; align-items: flex-start; font-size: 14px; color: var(--muted); max-width: 46ch; text-align: left; }
 .sub-hint::before { content: ""; flex-shrink: 0; width: 7px; height: 7px; margin-top: 7px; border-radius: 50%; background: var(--grad); }
 .sub-hint.warn { color: var(--bad); }
 .sub-hint.warn::before { background: var(--bad); }
@@ -241,11 +247,9 @@ h1, h2, h3 { letter-spacing: -0.025em; line-height: 1.15; }
   .dash { padding: 26px 0 50px; }
   .grid { gap: 14px; }
   .card { padding: 22px 18px; border-radius: 20px; }
-  .sub-body { flex-direction: column; align-items: stretch; gap: 18px; text-align: center; }
   .ring { margin: 0 auto; width: 136px; height: 136px; }
-  .sub-info { align-items: center; }
   .sub-hint { text-align: left; }
-  .sub-body > .btn { width: 100%; }
+
   .sub-facts { padding: 12px 14px; text-align: left; }
   .sub-facts > div + div { padding-left: 14px; }
   .ref-link .btn { flex: 1 1 100%; }
@@ -275,3 +279,9 @@ h1, h2, h3 { letter-spacing: -0.025em; line-height: 1.15; }
 .btn-danger:focus-visible { outline: 3px solid rgba(194,65,12,.4); outline-offset: 2px; }
 .nw { white-space: nowrap; }
 .sub-facts dd { overflow-wrap: anywhere; }
+/* на планшете карточка широкая — держим содержимое узким столбиком по центру */
+.sub-body, .sub-facts { width: 100%; max-width: 440px; margin-left: auto; margin-right: auto; }
+@media (min-width: 1001px) {
+  .card-sub .ring { width: 184px; height: 184px; }
+  .card-sub .ring-text b { font-size: 46px; }
+}
