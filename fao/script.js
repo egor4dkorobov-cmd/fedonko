@@ -93,3 +93,43 @@ document.querySelectorAll('.reveal').forEach((el) => {
   el.style.transitionDelay = `${sibs.indexOf(el) * 0.08}s`;
   io.observe(el);
 });
+
+/* ===== «+8»: карточка с остальными странами ===== */
+(function moreCountries() {
+  const wrap = document.querySelector('.fs-more-wrap');
+  if (!wrap) return;
+  const btn = wrap.querySelector('.fs-more');
+  const list = wrap.querySelector('.more-list');
+  // какие страны уже показаны флажками в стопке
+  const shown = [...document.querySelectorAll('.flag-stack .fs-flag')].map((f) => f.dataset.code);
+  // берём страны из блока «Серверы» (уже отсортированы по пингу) и пропускаем показанные
+  const rest = [...document.querySelectorAll('.servers li')].filter((li) => !shown.includes(li.querySelector('.flag').title));
+  list.innerHTML = rest.map((li, i) => {
+    const name = li.childNodes[1].textContent.trim();
+    const svg = li.querySelector('.flag svg').outerHTML;
+    return `<span class="more-item" style="transition-delay:${0.04 + i * 0.035}s"><span class="more-flag">${svg}</span>${name}<small>${li.dataset.ping} мс</small></span>`;
+  }).join('');
+  btn.textContent = '+' + rest.length;
+
+  // ставим карточку под «+8», но так, чтобы она целиком помещалась на экране
+  const pop = wrap.querySelector('.more-pop');
+  function place() {
+    const b = btn.getBoundingClientRect(), w = wrap.getBoundingClientRect();
+    const width = pop.offsetWidth, margin = 16;
+    const center = b.left + b.width / 2;
+    const left = Math.min(Math.max(center - width / 2, margin), innerWidth - margin - width);
+    pop.style.left = (left - w.left) + 'px';
+    pop.style.setProperty('--arrow', (center - left) + 'px');   // стрелка смотрит на «+8»
+  }
+  place();
+  wrap.addEventListener('mouseenter', place);
+  btn.addEventListener('focus', place);
+  window.addEventListener('resize', place);
+
+  // касание / клик открывает и закрывает; клик мимо и Esc — закрывают
+  const set = (open) => { if (open) place(); wrap.classList.toggle('open', open); btn.setAttribute('aria-expanded', open); };
+  btn.addEventListener('click', (e) => { e.stopPropagation(); set(!wrap.classList.contains('open')); });
+  document.addEventListener('click', (e) => { if (!wrap.contains(e.target)) set(false); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { set(false); btn.blur(); } });
+  wrap.addEventListener('mouseleave', () => set(false));
+})();

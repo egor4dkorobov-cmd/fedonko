@@ -406,9 +406,6 @@ h3 { font-size: 20px; letter-spacing: -0.015em; line-height: 1.25; }
 .fs-flag:first-child { margin-left: 0; }
 .fs-flag svg { width: 100%; height: 100%; transform: scale(1.5); }   /* флаг на весь кружок */
 .fs-more { display: grid; place-items: center; background: var(--grad); color: #fff; font-size: 11px; font-weight: 700; }
-.trust-flags:hover .fs-flag, .trust-flags:hover .fs-more { margin-left: 3px; }
-.trust-flags:hover .fs-flag:first-child { margin-left: 0; }
-.trust-flags:hover .fs-flag:nth-child(odd) { transform: translateY(-3px); }
 
 /* иконки устройств */
 .dev-row { display: flex; gap: 4px; }
@@ -444,17 +441,80 @@ h3 { font-size: 20px; letter-spacing: -0.015em; line-height: 1.25; }
 /* колонки главного экрана не зависят от ширины содержимого */
 .hero-inner { grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); }
 @media (max-width: 1000px) { .hero-inner { grid-template-columns: minmax(0, 1fr); } }
-/* флаги не раздвигаются, а подпрыгивают волной */
-.trust-flags:hover .fs-flag, .trust-flags:hover .fs-more { margin-left: -11px; }
-.trust-flags:hover .fs-flag:first-child { margin-left: 0; }
-.trust-flags:hover .fs-flag:nth-child(odd) { transform: none; }
-.fs-flag, .fs-more { position: relative; }
-.trust-flags:hover .fs-flag, .trust-flags:hover .fs-more { animation: flagWave .6s cubic-bezier(.3,.7,.4,1) both; }
-.trust-flags:hover .fs-flag:nth-child(2) { animation-delay: .06s; }
-.trust-flags:hover .fs-flag:nth-child(3) { animation-delay: .12s; }
-.trust-flags:hover .fs-flag:nth-child(4) { animation-delay: .18s; }
-.trust-flags:hover .fs-more { animation-delay: .24s; }
-@keyframes flagWave {
-  0%, 100% { transform: translateY(0); }
-  40% { transform: translateY(-6px); z-index: 2; }
+
+/* ===== Флаги: увеличение при наведении + раскрытие «+8» ===== */
+.hero-trust { position: relative; z-index: 5; }
+.fs-flag { position: relative; cursor: default; transition: transform .3s cubic-bezier(.3,1.5,.5,1), box-shadow .3s; }
+.fs-flag:hover { transform: scale(1.4); z-index: 3; box-shadow: 0 8px 18px -6px rgba(59,13,34,.45); }
+
+.fs-more-wrap { position: relative; margin-left: -11px; display: inline-flex; }
+button.fs-more {
+  margin-left: 0; cursor: pointer; font: inherit; font-size: 11px; font-weight: 700; color: #fff;
+  transition: transform .3s cubic-bezier(.3,1.5,.5,1), box-shadow .3s;
 }
+.fs-more-wrap:hover .fs-more, .fs-more-wrap.open .fs-more { transform: scale(1.15); box-shadow: 0 8px 18px -6px rgba(219,39,119,.7); }
+
+/* выезжающая карточка; прозрачный верхний отступ — «мостик», чтобы она не закрывалась по дороге курсора */
+.more-pop {
+  position: absolute; top: 100%; left: 50%;
+  padding-top: 14px;
+  width: 340px;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+.more-card {
+  display: block; position: relative;
+  padding: 18px 18px 14px;
+  background: #fff; border: 1px solid var(--line); border-radius: 20px;
+  box-shadow: 0 30px 60px -25px rgba(59,13,34,.45), 0 4px 12px rgba(59,13,34,.06);
+  opacity: 0; transform: translateY(-8px) scale(.96); transform-origin: 50% 0;
+  transition: opacity .25s ease, transform .35s cubic-bezier(.2,.9,.3,1.2);
+}
+.more-card::before {   /* уголок-стрелка к «+8» */
+  content: ""; position: absolute; top: -7px; left: 50%; width: 12px; height: 12px;
+  background: #fff; border-left: 1px solid var(--line); border-top: 1px solid var(--line);
+  transform: translateX(-50%) rotate(45deg);
+}
+.more-title { display: block; font-size: 13px; font-weight: 700; color: var(--muted); letter-spacing: .02em; margin-bottom: 10px; padding-left: 4px; }
+.more-list { display: grid; grid-template-columns: 1fr 1fr; gap: 2px 8px; }
+.more-item {
+  display: flex; align-items: center; gap: 9px;
+  padding: 7px 6px; border-radius: 10px;
+  font-size: 14px; font-weight: 500; white-space: nowrap;
+  opacity: 0; transform: translateY(6px);
+  transition: opacity .3s ease, transform .35s cubic-bezier(.2,.8,.2,1), background .2s;
+}
+.more-item:hover { background: #fbf0f5; }
+.more-flag { width: 22px; height: 22px; border-radius: 50%; overflow: hidden; flex-shrink: 0; box-shadow: 0 0 0 1px rgba(59,13,34,.1); }
+.more-flag svg { width: 100%; height: 100%; transform: scale(1.5); }
+.more-item small { margin-left: auto; color: var(--muted); font-size: 12px; font-variant-numeric: tabular-nums; }
+
+/* открыто: наведение (на компьютере), фокус с клавиатуры или касание (класс open) */
+.fs-more-wrap.open .more-pop, .fs-more-wrap:focus-within .more-pop { pointer-events: auto; }
+.fs-more-wrap.open .more-card, .fs-more-wrap:focus-within .more-card { opacity: 1; transform: none; }
+.fs-more-wrap.open .more-item, .fs-more-wrap:focus-within .more-item { opacity: 1; transform: none; }
+@media (hover: hover) {
+  .fs-more-wrap:hover .more-pop { pointer-events: auto; }
+  .fs-more-wrap:hover .more-card { opacity: 1; transform: none; }
+  .fs-more-wrap:hover .more-item { opacity: 1; transform: none; }
+}
+
+@media (max-width: 720px) {
+  /* на телефоне карточка выравнивается по левому краю плашки, чтобы не вылезать за экран */
+  .more-pop { left: auto; right: auto; transform: none; width: min(320px, calc(100vw - 32px)); }
+  .more-card::before { left: 120px; }
+}
+
+/* ===== «+8»: карточка не обрезается и не вылезает за экран ===== */
+/* главный экран больше не прячет то, что выходит вниз (по горизонтали — по-прежнему обрезает) */
+.hero { overflow: visible; overflow-x: clip; }
+.more-pop { width: 420px; left: 0; transform: none; }          /* точное место считает скрипт */
+.more-card::before { left: var(--arrow, 50%); }
+.more-list { grid-template-columns: 1fr 1fr; gap: 2px 6px; }
+.more-item { min-width: 0; }
+@media (max-width: 720px) {
+  .more-pop { width: min(340px, calc(100vw - 32px)); }
+  .more-list { grid-template-columns: 1fr; }
+  .more-card::before { left: var(--arrow, 50%); }
+}
+@media (min-width: 721px) { .more-pop { width: 456px; } }
