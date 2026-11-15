@@ -439,3 +439,22 @@ h3 { font-size: 20px; letter-spacing: -0.015em; line-height: 1.25; }
   .hero-trust { flex-direction: column; align-items: stretch; }
   .trust-item + .trust-item { border-left: 0; border-top: 1px solid var(--line); }
 }
+
+/* ===== Исправление: плашка с флагами не меняет ширину при наведении ===== */
+/* колонки главного экрана не зависят от ширины содержимого */
+.hero-inner { grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); }
+@media (max-width: 1000px) { .hero-inner { grid-template-columns: minmax(0, 1fr); } }
+/* флаги не раздвигаются, а подпрыгивают волной */
+.trust-flags:hover .fs-flag, .trust-flags:hover .fs-more { margin-left: -11px; }
+.trust-flags:hover .fs-flag:first-child { margin-left: 0; }
+.trust-flags:hover .fs-flag:nth-child(odd) { transform: none; }
+.fs-flag, .fs-more { position: relative; }
+.trust-flags:hover .fs-flag, .trust-flags:hover .fs-more { animation: flagWave .6s cubic-bezier(.3,.7,.4,1) both; }
+.trust-flags:hover .fs-flag:nth-child(2) { animation-delay: .06s; }
+.trust-flags:hover .fs-flag:nth-child(3) { animation-delay: .12s; }
+.trust-flags:hover .fs-flag:nth-child(4) { animation-delay: .18s; }
+.trust-flags:hover .fs-more { animation-delay: .24s; }
+@keyframes flagWave {
+  0%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-6px); z-index: 2; }
+}
