@@ -253,3 +253,14 @@ h1, h2, h3 { letter-spacing: -0.025em; line-height: 1.15; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
+
+/* ===== Окно «Отключить устройство?» ===== */
+.modal-confirm { width: min(420px, 100%); text-align: center; align-items: center; }
+.modal-confirm h2 { padding: 0 24px; overflow-wrap: anywhere; }
+.modal-confirm .muted { margin-top: -4px; }
+.confirm-ic { width: 56px; height: 56px; border-radius: 18px; display: grid; place-items: center; background: #fdece4; color: var(--bad); }
+.confirm-ic svg { width: 26px; height: 26px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; }
+.confirm-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; width: 100%; margin-top: 6px; }
+.btn-danger { background: var(--bad); color: #fff; box-shadow: 0 12px 26px -14px rgba(194,65,12,.9); }
+.btn-danger:hover { background: #a8360a; }
+.btn-danger:focus-visible { outline: 3px solid rgba(194,65,12,.4); outline-offset: 2px; }

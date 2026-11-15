@@ -333,12 +333,24 @@
     add.disabled = n >= MAX_DEVICES;
     add.textContent = n >= MAX_DEVICES ? 'Подключено максимум — 5 устройств' : '+ Подключить устройство';
   }
+  // «Отключить» сначала спрашивает подтверждение
+  let devToOff = null;
   $('.dev-list').addEventListener('click', (e) => {
     const b = e.target.closest('.dev-off');
     if (!b) return;
     const d = S.devices.find((x) => x.id === b.dataset.id);
-    S.devices = S.devices.filter((x) => x.id !== b.dataset.id);
-    save(); renderDevices();
+    if (!d) return;
+    devToOff = d.id;
+    $('.do-name').textContent = d.name;
+    openModal('#m-devoff');
+  });
+  $('.js-devoff-yes').addEventListener('click', () => {
+    const d = S.devices.find((x) => x.id === devToOff);
+    S.devices = S.devices.filter((x) => x.id !== devToOff);
+    devToOff = null;
+    save();
+    closeModal($('#m-devoff'));
+    renderDevices();
     toast(`${d ? d.name : 'Устройство'} отключено`);
     const next = $('.dev-off') || $('.js-add-dev'); next.focus({ preventScroll: true });
   });
@@ -384,7 +396,7 @@
     document.body.style.overflow = 'hidden';
     if (sel === '#m-plans') updatePay();
     if (sel === '#m-topup') resetTopup();
-    const first = m.querySelector('input:checked, .chip, button:not(.modal-x)');
+    const first = m.querySelector('.js-cancel, input:checked, .chip, button:not(.modal-x)');
     (first || m.querySelector('button')).focus({ preventScroll: true });
   }
   function closeModal(m) {

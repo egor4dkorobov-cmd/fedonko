@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="cabinet.css?v=202611151944">
+<link rel="stylesheet" href="cabinet.css?v=202611152248">
 </head>
 <body>
 
@@ -234,8 +234,22 @@
   </div>
 </div>
 
+<!-- ===== Окно: подтверждение отключения устройства ===== -->
+<div class="modal" id="m-devoff" role="alertdialog" aria-modal="true" aria-labelledby="md-title" aria-describedby="md-text" hidden>
+  <div class="modal-box modal-confirm">
+    <button type="button" class="modal-x js-close" aria-label="Закрыть">✕</button>
+    <span class="confirm-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3v8"/><path d="M6.3 6.7a8 8 0 1 0 11.4 0"/></svg></span>
+    <h2 id="md-title">Отключить <span class="do-name"></span>?</h2>
+    <p class="muted" id="md-text">Устройство сразу потеряет доступ к VPN. Подключить его снова можно в любой момент.</p>
+    <div class="confirm-btns">
+      <button type="button" class="btn btn-ghost js-close js-cancel">Отмена</button>
+      <button type="button" class="btn btn-danger js-devoff-yes">Отключить</button>
+    </div>
+  </div>
+</div>
+
 <div class="toast" role="status" aria-live="polite"></div>
 
-<script src="cabinet.js?v=202611151944"></script>
+<script src="cabinet.js?v=202611152248"></script>
 </body>
 </html>
