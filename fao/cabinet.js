@@ -233,9 +233,21 @@
     $('.sub-until', card).innerHTML = on
       ? `Действует до <b>${dateLong(S.until)}</b>`
       : (S.until ? `Закончилась <b>${dateLong(S.until)}</b>` : 'Подписки пока нет');
-    $('.sub-plan', card).textContent = on
-      ? `Тариф: ${PLANS[S.plan].name} · ${left <= 3 ? 'скоро закончится — продлите заранее' : 'всё работает'}`
-      : 'VPN отключён. Продлите подписку, чтобы снова пользоваться сервисом.';
+    // строки «Тариф» и «Оплачена»
+    const plan = PLANS[S.plan] || PLANS[1];
+    $('.sf-plan', card).textContent = S.until ? `${plan.name} · ${money(plan.price)}` : '—';
+    $('.sf-paid', card).textContent = S.started ? 'с ' + dateLong(S.started) : '—';
+
+    // подсказка: хватит ли баланса на продление
+    const hint = $('.sub-hint', card);
+    const fits = [12, 6, 1].find((m) => S.balance >= PLANS[m].price);
+    let text;
+    if (!on) text = 'VPN отключён. Продлите подписку, чтобы снова пользоваться сервисом.';
+    else if (fits) text = `На балансе ${money(S.balance)} — хватит, чтобы продлить на ${PLANS[fits].name.replace('1 месяц', 'месяц')}.`;
+    else text = `На балансе ${money(S.balance)} — пополните ещё ${money(PLANS[1].price - S.balance)}, чтобы продлить на месяц.`;
+    if (on && left <= 3) text = 'Подписка скоро закончится. ' + text;
+    hint.textContent = text;
+    hint.classList.toggle('warn', !on || left <= 3);
     $('.js-open-plans', card).textContent = on ? 'Продлить подписку' : 'Оформить подписку';
   }
 
