@@ -693,12 +693,21 @@ button.fs-more {
 .header.on-dark .nav a::before { background: linear-gradient(135deg, #a855f7, #ec4899); }
 
 /* ===== Преимущества: фиолетовые квадраты и рамка с переливом при наведении ===== */
+/* обычное состояние — светло-розовый квадрат с фиолетовой иконкой, как раньше */
 .feature .icon {
-  background: linear-gradient(135deg, #7c3aed, #6d28d9);
-  color: #fff;
-  box-shadow: 0 10px 22px -12px rgba(109,40,217,.8);
-  transition: transform .35s cubic-bezier(.3,1.4,.5,1), box-shadow .3s;
+  position: relative; overflow: hidden; isolation: isolate;
+  background: #f6e8f8;
+  color: var(--accent);
+  transition: color .3s ease, transform .35s cubic-bezier(.3,1.4,.5,1), box-shadow .3s;
 }
+/* фиолетовая заливка проявляется плавно при наведении на карточку */
+.feature .icon::before {
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  background: linear-gradient(135deg, #7c3aed, #6d28d9);
+  opacity: 0; transition: opacity .3s ease;
+}
+.feature:hover .icon { color: #fff; }
+.feature:hover .icon::before { opacity: 1; }
 .feature { position: relative; }
 .feature::before {
   content: ""; position: absolute; inset: -1px; border-radius: inherit;
