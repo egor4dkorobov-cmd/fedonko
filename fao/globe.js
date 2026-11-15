@@ -317,19 +317,25 @@
         vec3 w = uRot * n;                   // та же точка на «настоящей» Земле
         float uA = atan(w.x, w.z) / TAU + 0.5;
         float uB = fract(uA + 0.5) - 0.5;
-        float u = (fwidth(uA) <= fwidth(uB)) ? uA : uB;   // без шва на 180-м меридиане
-        vec2 uv = vec2(u, asin(clamp(w.y, -1.0, 1.0)) / PI + 0.5);
+        float v = asin(clamp(w.y, -1.0, 1.0)) / PI + 0.5;
+        vec2 uv = vec2(uA, v);
+        // Чёткость снимка задаём сами: считаем, как быстро меняется координата между соседними
+        // точками, двумя способами и берём меньшее значение. Так нет ни шва на 180-м меридиане,
+        // ни «шума» на видеокартах, где соседние точки считаются по-разному.
+        vec2 dA = vec2(dFdx(uA), dFdy(uA)), dB = vec2(dFdx(uB), dFdy(uB));
+        vec2 du = vec2(abs(dA.x) <= abs(dB.x) ? dA.x : dB.x, abs(dA.y) <= abs(dB.y) ? dA.y : dB.y);
+        vec2 gx = vec2(du.x, dFdx(v)), gy = vec2(du.y, dFdy(v));
 
-        vec3 day = texture(uDay, uv).rgb;
-        vec3 night = texture(uNight, uv).rgb;
-        float water = texture(uWater, uv).r;
+        vec3 day = textureGrad(uDay, uv, gx, gy).rgb;
+        vec3 night = textureGrad(uNight, uv, gx, gy).rgb;
+        float water = textureGrad(uWater, uv, gx, gy).r;
 
         float ndl = dot(n, uSun);
         float dayF = smoothstep(-0.20, 0.30, ndl);        // мягкая граница дня и ночи
 
         vec3 lit = day * (0.08 + 1.25 * max(ndl, 0.0));
         vec3 hv = normalize(uSun + vec3(0.0, 0.0, 1.0));
-        lit += vec3(1.0, 0.93, 0.82) * pow(max(dot(n, hv), 0.0), 150.0) * water * 0.28;  // блик на океане
+        lit += vec3(1.0, 0.93, 0.82) * pow(max(dot(n, hv), 0.0), 150.0) * water * 0.16;  // блик на океане
 
         float cityGlow = max(night.r - night.b * 0.85, 0.0);
         vec3 dark = night * 0.45 + vec3(1.0, 0.76, 0.42) * cityGlow * 5.5;               // огни городов
