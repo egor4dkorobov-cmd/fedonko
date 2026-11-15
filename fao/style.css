@@ -670,3 +670,24 @@ button.fs-more {
   .globe-stage { gap: 6px; }
   .globe-head { margin-bottom: 0; }
 }
+
+/* ===== Меню: обводка с переливом вокруг слова при наведении ===== */
+.nav { gap: 4px; }
+.nav a { position: relative; padding: 8px 15px; border-radius: 999px; }
+.nav a::before {
+  content: ""; position: absolute; inset: 0; border-radius: inherit;
+  padding: 1.5px;                                   /* толщина обводки */
+  background: var(--grad);
+  /* оставляем от заливки только рамку */
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  opacity: 0; transform: scale(.9);
+  transition: opacity .25s ease, transform .35s cubic-bezier(.3,1.4,.5,1);
+  pointer-events: none;
+}
+.nav a:hover::before, .nav a:focus-visible::before { opacity: 1; transform: none; }
+.nav a:hover { color: var(--text); }
+.nav a:focus-visible { outline: none; }
+/* над тёмным блоком с планетой обводка светлее */
+.header.on-dark .nav a::before { background: linear-gradient(135deg, #a855f7, #ec4899); }
