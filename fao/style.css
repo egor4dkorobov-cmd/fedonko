@@ -801,3 +801,25 @@ button.fs-more {
 /* ===== Доступность: надписи над заголовками читаются лучше (контраст 4,5+) ===== */
 .eyebrow { color: #b0185a; }
 .globe-head .eyebrow { color: #f472b6; }   /* на чёрном блоке — светлый розовый, как было */
+
+/* ===== Главный экран без мини-приложения: всё по центру + мягкое свечение ===== */
+.hero-center { position: relative; padding: 96px 0 120px; }
+.hero-center::before {
+  content: ""; position: absolute; left: 50%; top: 46%;
+  width: min(1100px, 130vw); aspect-ratio: 1.6; transform: translate(-50%, -50%);
+  background:
+    radial-gradient(closest-side at 38% 50%, rgba(109,40,217,.16), transparent 70%),
+    radial-gradient(closest-side at 64% 46%, rgba(219,39,119,.16), transparent 70%);
+  filter: blur(10px);
+  pointer-events: none; z-index: 0;
+}
+.hero-center .hero-inner { grid-template-columns: minmax(0, 1fr); justify-items: center; text-align: center; position: relative; z-index: 1; }
+.hero-center .hero-text { display: flex; flex-direction: column; align-items: center; max-width: 820px; }
+.hero-center h1 { font-size: clamp(44px, 7vw, 92px); }
+.hero-center .lead { margin-left: auto; margin-right: auto; max-width: 600px; }
+.hero-center .hero-actions { justify-content: center; }
+.hero-center .hero-trust { text-align: left; }
+@media (max-width: 720px) {
+  .hero-center { padding: 48px 0 80px; }
+  .hero-center::before { top: 38%; }
+}

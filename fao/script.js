@@ -7,6 +7,7 @@ onScroll();
 /* ===== Мини-приложение: переключатель защиты ===== */
 (function app() {
   const box = document.querySelector('.app');
+  if (!box) return;   // мини-приложения на странице нет — ничего не делаем
   const btn = box.querySelector('.power');
   const statusText = box.querySelector('.app-status-text');
   const hint = box.querySelector('.app-hint');
