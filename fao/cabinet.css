@@ -120,12 +120,15 @@ h1, h2, h3 { letter-spacing: -0.025em; line-height: 1.15; }
 .ring-text { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
 .ring-text b { font-size: 38px; line-height: 1; letter-spacing: -0.04em; }
 .ring-text span { font-size: 13px; color: var(--muted); }
-.sub-info { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; min-width: 0; }
+.sub-info { flex: 1; display: flex; flex-direction: column; align-items: flex-start; gap: 8px; min-width: 0; }
+.sub-body > .btn { flex-shrink: 0; }
 .sub-until { font-size: 22px; font-weight: 700; letter-spacing: -0.02em; }
-.sub-facts { display: flex; flex-wrap: wrap; gap: 8px 28px; margin: 6px 0 2px; }
+/* блок с тарифом внизу — в градиентной рамке */
+.sub-facts { display: grid; grid-template-columns: 1fr 1fr; gap: 0; padding: 14px 20px; border: 1.5px solid transparent; border-radius: 16px; background: linear-gradient(#fdf7fa, #fdf7fa) padding-box, var(--grad) border-box; }
+.sub-facts > div + div { padding-left: 20px; border-left: 1px solid #ecd6e2; }
 .sub-facts dt { font-size: 12.5px; color: var(--muted); }
 .sub-facts dd { font-size: 15.5px; font-weight: 600; }
-.sub-hint { display: flex; gap: 8px; align-items: flex-start; font-size: 14px; color: var(--muted); margin: 6px 0 14px; max-width: 46ch; }
+.sub-hint { display: flex; gap: 8px; align-items: flex-start; font-size: 14px; color: var(--muted); max-width: 46ch; }
 .sub-hint::before { content: ""; flex-shrink: 0; width: 7px; height: 7px; margin-top: 7px; border-radius: 50%; background: var(--grad); }
 .sub-hint.warn { color: var(--bad); }
 .sub-hint.warn::before { background: var(--bad); }
@@ -241,9 +244,10 @@ h1, h2, h3 { letter-spacing: -0.025em; line-height: 1.15; }
   .sub-body { flex-direction: column; align-items: stretch; gap: 18px; text-align: center; }
   .ring { margin: 0 auto; width: 136px; height: 136px; }
   .sub-info { align-items: center; }
-  .sub-facts { justify-content: center; text-align: center; }
   .sub-hint { text-align: left; }
-  .sub-info .btn { width: 100%; }
+  .sub-body > .btn { width: 100%; }
+  .sub-facts { padding: 12px 14px; text-align: left; }
+  .sub-facts > div + div { padding-left: 14px; }
   .ref-link .btn { flex: 1 1 100%; }
   .ref-stats b { font-size: 21px; }
   .ref-stats div { padding: 12px; }
@@ -269,3 +273,5 @@ h1, h2, h3 { letter-spacing: -0.025em; line-height: 1.15; }
 .btn-danger { background: var(--bad); color: #fff; box-shadow: 0 12px 26px -14px rgba(194,65,12,.9); }
 .btn-danger:hover { background: #a8360a; }
 .btn-danger:focus-visible { outline: 3px solid rgba(194,65,12,.4); outline-offset: 2px; }
+.nw { white-space: nowrap; }
+.sub-facts dd { overflow-wrap: anywhere; }

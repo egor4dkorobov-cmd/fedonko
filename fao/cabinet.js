@@ -36,6 +36,9 @@
     return many;
   };
   const dateLong = (d) => new Date(d).toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' });
+  // без года, если год текущий: «3 декабря»; иначе «3 декабря 2027 г.»
+  const dateSmart = (d) => new Date(d).getFullYear() === new Date().getFullYear()
+    ? new Date(d).toLocaleDateString('ru-RU', { day: 'numeric', month: 'long' }) : dateLong(d);
   const dateShort = (d) => new Date(d).toLocaleDateString('ru-RU', { day: 'numeric', month: 'short' }).replace('.', '');
   const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const addMonths = (t, m) => { const d = new Date(t); d.setMonth(d.getMonth() + m); return d.getTime(); };
@@ -231,12 +234,12 @@
     requestAnimationFrame(() => ($('.ring-fg', card).style.strokeDasharray = part + ' 100'));
 
     $('.sub-until', card).innerHTML = on
-      ? `Действует до <b>${dateLong(S.until)}</b>`
-      : (S.until ? `Закончилась <b>${dateLong(S.until)}</b>` : 'Подписки пока нет');
+      ? `Действует до <b><span class="nw">${dateSmart(S.until)}</span></b>`
+      : (S.until ? `Закончилась <b><span class="nw">${dateSmart(S.until)}</span></b>` : 'Подписки пока нет');
     // строки «Тариф» и «Оплачена»
     const plan = PLANS[S.plan] || PLANS[1];
     $('.sf-plan', card).textContent = S.until ? `${plan.name} · ${money(plan.price)}` : '—';
-    $('.sf-paid', card).textContent = S.started ? 'с ' + dateLong(S.started) : '—';
+    $('.sf-paid', card).textContent = S.started ? 'с ' + dateSmart(S.started) : '—';
 
     // подсказка: хватит ли баланса на продление
     const hint = $('.sub-hint', card);
