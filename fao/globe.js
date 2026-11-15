@@ -368,10 +368,21 @@
     gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
     const aniso = gl.getExtension('EXT_texture_filter_anisotropic');
 
+    // Картинки распаковываются в фоне (decode), а в видеокарту отправляются по одной за кадр —
+    // так страница не «замирает» на долгую задачу.
+    const queue = [];
+    let uploading = false;
+    const pump = () => {
+      const job = queue.shift();
+      if (!job) { uploading = false; return; }
+      job();
+      requestAnimationFrame(pump);
+    };
     [['uDay', 'img/earth-day.jpg'], ['uNight', 'img/earth-night.jpg'], ['uWater', 'img/earth-water.jpg']].forEach(([name, src], i) => {
       gl.uniform1i(gl.getUniformLocation(prog, name), i);
       const img = new Image();
-      img.onload = () => {
+      img.decoding = 'async';
+      const upload = () => {
         const t = gl.createTexture();
         gl.activeTexture(gl.TEXTURE0 + i);
         gl.bindTexture(gl.TEXTURE_2D, t);
@@ -384,15 +395,24 @@
         if (++texReady === 3) { measure(); render(); box.classList.add('ready'); }
       };
       img.src = src;
+      img.decode().catch(() => {}).then(() => {
+        if (!img.complete || !img.naturalWidth) return;
+        queue.push(upload);
+        if (!uploading) { uploading = true; requestAnimationFrame(pump); }
+      });
     });
     glCanvas.addEventListener('webglcontextlost', (e) => { e.preventDefault(); box.classList.remove('ready'); });
   }
 
   /* ---------- запуск: текстуры грузим, только когда блок уже близко ---------- */
   let started = false;
+  // ждём, пока страница загрузится и браузер освободится, а планета будет примерно в экране от зрителя
+  const start = () => { if (!started) { started = true; initGL(); } };
+  const whenIdle = (fn) => ('requestIdleCallback' in window ? requestIdleCallback(fn, { timeout: 1500 }) : setTimeout(fn, 300));
+  const afterLoad = (fn) => (document.readyState === 'complete' ? fn() : addEventListener('load', fn, { once: true }));
   new IntersectionObserver((entries) => {
-    if (entries[0].isIntersecting && !started) { started = true; initGL(); }
-  }, { rootMargin: '150% 0px' }).observe(sec);
+    if (entries[0].isIntersecting) afterLoad(() => whenIdle(start));
+  }, { rootMargin: '120% 0px' }).observe(sec);
   new IntersectionObserver((entries) => {
     sec.classList.toggle('offscreen', !entries[0].isIntersecting);
   }).observe(sec);
