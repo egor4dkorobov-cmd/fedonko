@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=202611151107">
+<link rel="stylesheet" href="style.css?v=202611151141">
 </head>
 <body>
 
@@ -142,6 +142,43 @@
         <p>Соединение зашифровано — даже в открытом Wi-Fi.</p>
       </li>
     </ol>
+  </div>
+</section>
+
+<!-- ===== Сеть FAO: планета (единственный тёмный блок) ===== -->
+<section class="globe-sec" id="network" aria-label="Сеть серверов FAO">
+  <div class="globe-sticky">
+    <canvas class="globe-stars" aria-hidden="true"></canvas>
+
+    <div class="globe-head">
+      <p class="eyebrow">Сеть FAO</p>
+      <h2>Серверы по всему миру</h2>
+    </div>
+
+    <div class="globe-stage">
+      <ul class="gfeat gfeat-left">
+        <li data-at=".08"><b>12 стран</b><span>Европа, Азия и Америка</span></li>
+        <li data-at=".26"><b>Сервер выбирается сам</b><span>Подключаем к ближайшему — задержка минимальная</span></li>
+      </ul>
+
+      <div class="globe-box">
+        <div class="globe-fallback" aria-hidden="true"></div>
+        <canvas class="globe-gl" aria-hidden="true"></canvas>
+        <svg class="globe-svg" aria-hidden="true"></svg>
+        <div class="globe-labels"></div>
+      </div>
+
+      <ul class="gfeat gfeat-right">
+        <li data-at=".44"><b>Шифрование AES-256</b><span>Данные нельзя прочитать по пути</span></li>
+        <li data-at=".6"><b>Без логов</b><span>Не храним историю посещений</span></li>
+      </ul>
+    </div>
+
+    <div class="globe-foot">
+      <p class="globe-status" data-at=".93"><i></i>Подключено · <span class="gs-country">Нидерланды</span> · <span class="gs-ping">18 мс</span></p>
+      <p class="globe-hint" data-at=".96">Потяните планету, чтобы покрутить</p>
+    </div>
+    <div class="globe-progress"><i></i></div>
   </div>
 </section>
 
@@ -288,6 +325,7 @@
   </div>
 </footer>
 
-<script src="script.js?v=202611151107"></script>
+<script src="script.js?v=202611151141"></script>
+<script src="globe.js?v=202611151141"></script>
 </body>
 </html>

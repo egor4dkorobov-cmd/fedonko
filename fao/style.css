@@ -518,3 +518,155 @@ button.fs-more {
   .more-card::before { left: var(--arrow, 50%); }
 }
 @media (min-width: 721px) { .more-pop { width: 456px; } }
+
+/* ======================================================
+   СЕТЬ FAO: ПЛАНЕТА — единственный тёмный блок сайта
+   ====================================================== */
+.globe-sec { position: relative; height: 420vh; background: #04030a; color: #fff; }
+.globe-sticky {
+  position: sticky; top: 0; height: 100vh; overflow: hidden;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: 92px 24px 64px;
+  /* размер планеты: зависит и от высоты, и от ширины экрана */
+  --S: min(calc(100vh - 330px), 44vw, 600px);
+}
+.globe-stars { position: absolute; inset: 0; width: 100%; height: 100%; opacity: .9; }
+.globe-head { position: relative; text-align: center; margin-bottom: 6px; }
+.globe-head .eyebrow { color: #f472b6; }
+.globe-head h2 { font-size: clamp(28px, 3.8vw, 48px); }
+
+.globe-stage {
+  position: relative; width: 100%; max-width: 1240px;
+  display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: center; gap: 40px;
+}
+.globe-box { position: relative; width: var(--S); height: var(--S); touch-action: pan-y; cursor: grab; user-select: none; -webkit-user-select: none; }
+.globe-box.dragging { cursor: grabbing; }
+/* холст, линии и подписи больше самой планеты — чтобы поместились свечение и выноски */
+.globe-gl, .globe-svg, .globe-labels {
+  position: absolute; left: 50%; top: 50%; width: 160%; height: 160%;
+  transform: translate(-50%, -50%);
+}
+.globe-svg { overflow: visible; pointer-events: none; }
+.globe-labels { pointer-events: none; }
+.globe-gl { opacity: 0; transition: opacity .8s ease; pointer-events: none; }
+.globe-box.ready .globe-gl { opacity: 1; }
+/* пока текстуры грузятся (или если нет WebGL) — тёмный шар со свечением */
+.globe-fallback {
+  position: absolute; inset: 0; border-radius: 50%;
+  background: radial-gradient(circle at 34% 30%, #2b3f8a, #131b45 45%, #060818 78%);
+  box-shadow: 0 0 60px 6px rgba(96,120,255,.35), inset -30px -30px 80px rgba(0,0,0,.6);
+  transition: opacity .8s ease;
+}
+.globe-box.ready .globe-fallback { opacity: 0; }
+
+/* --- метка сервера: фиолетовое свечение --- */
+.gm { position: absolute; left: 0; top: 0; width: 0; height: 0; opacity: 0; will-change: transform, opacity; }
+.gm i, .gm b, .gm u { position: absolute; left: 0; top: 0; border-radius: 50%; transform: translate(-50%, -50%); }
+.gm i { width: 46px; height: 46px; background: radial-gradient(circle, rgba(192,132,252,.95) 0%, rgba(168,85,247,.55) 22%, rgba(147,51,234,.22) 48%, transparent 70%); }
+.gm b { width: 7px; height: 7px; background: #fff; box-shadow: 0 0 8px 2px rgba(216,180,254,.95); }
+.gm u { width: 16px; height: 16px; border: 1.5px solid rgba(216,180,254,.9); animation: gmPulse 2.4s ease-out infinite; }
+@keyframes gmPulse { 0% { transform: translate(-50%, -50%) scale(.6); opacity: 1; } 100% { transform: translate(-50%, -50%) scale(2.6); opacity: 0; } }
+.gm.you i { width: 54px; height: 54px; background: radial-gradient(circle, rgba(255,255,255,.95) 0%, rgba(244,114,182,.7) 20%, rgba(219,39,119,.3) 46%, transparent 70%); }
+.gm.you u { border-color: rgba(251,207,232,.95); }
+
+/* --- подпись страны --- */
+.gl {
+  position: absolute; left: 0; top: 0; opacity: 0;
+  pointer-events: auto; white-space: nowrap;
+  transition: opacity .3s ease;
+  will-change: transform, opacity;
+}
+.gl-chip {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 4px 11px 4px 5px;
+  transform: translate(0, -50%);
+  background: rgba(20, 12, 34, .78);
+  border: 1px solid rgba(196,150,255,.5);
+  border-radius: 999px;
+  font-size: 13px; font-weight: 600; color: #fff; line-height: 1;
+  box-shadow: 0 6px 18px -8px rgba(168,85,247,.9);
+  transition: border-color .2s, background .2s;
+}
+.gl.to-left .gl-chip { transform: translate(-100%, -50%); }
+.gl-chip:hover { border-color: #e9d5ff; background: rgba(46, 22, 78, .92); }
+.gl-flag { width: 18px; height: 18px; border-radius: 50%; overflow: hidden; flex-shrink: 0; }
+.gl-flag svg { width: 100%; height: 100%; transform: scale(1.5); }
+.gl small { max-width: 0; overflow: hidden; color: #d8b4fe; font-size: 12px; font-weight: 500; transition: max-width .3s ease, margin .3s ease; }
+.gl-chip:hover small { max-width: 60px; margin-left: 2px; }
+.gl.you .gl-chip { border-color: rgba(251,207,232,.8); background: rgba(60, 12, 40, .85); padding-left: 11px; }
+.gl.hidden { opacity: 0 !important; pointer-events: none; }
+
+/* --- линии-выноски и дуга подключения --- */
+.globe-svg line { stroke: rgba(216,180,254,.75); stroke-width: 1; }
+.g-arc { fill: none; stroke: #f9a8d4; stroke-width: 2; stroke-linecap: round; filter: drop-shadow(0 0 6px rgba(244,114,182,.9)); }
+.g-arc-glow { fill: none; stroke: rgba(236,72,153,.35); stroke-width: 7; stroke-linecap: round; }
+.g-packets { fill: none; stroke: #fff; stroke-width: 3; stroke-linecap: round; stroke-dasharray: .012 .188; animation: gPackets 1.6s linear infinite; }
+@keyframes gPackets { to { stroke-dashoffset: -1; } }
+
+/* --- преимущества по бокам --- */
+.gfeat { list-style: none; display: flex; flex-direction: column; gap: 64px; position: relative; }
+.gfeat-left { text-align: right; }
+.gfeat li { opacity: 0; transform: translateY(26px); transition: opacity .6s, transform .6s cubic-bezier(.2,.8,.2,1); }
+.gfeat li.on { opacity: 1; transform: none; }
+.gfeat b { display: block; font-size: clamp(19px, 1.9vw, 26px); font-weight: 700; letter-spacing: -0.02em; line-height: 1.2; }
+.gfeat span { display: block; margin-top: 6px; color: #b6a8c9; font-size: 15px; line-height: 1.45; }
+.gfeat li::before { content: ""; display: block; width: 34px; height: 3px; border-radius: 2px; background: linear-gradient(90deg, #a855f7, #ec4899); margin-bottom: 14px; }
+.gfeat-left li::before { margin-left: auto; }
+
+/* --- низ: статус и подсказка --- */
+.globe-foot { position: relative; display: flex; flex-direction: column; align-items: center; gap: 8px; margin-top: 4px; min-height: 66px; }
+.globe-status {
+  display: inline-flex; align-items: center; gap: 9px;
+  padding: 9px 18px; border-radius: 999px;
+  background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.16);
+  font-size: 15px; font-weight: 600;
+  opacity: 0; transform: translateY(10px); transition: opacity .5s, transform .5s;
+}
+.globe-status i { width: 8px; height: 8px; border-radius: 50%; background: #f472b6; box-shadow: 0 0 10px 2px rgba(244,114,182,.8); }
+.globe-hint { color: #8f83a3; font-size: 13px; opacity: 0; transition: opacity .5s; }
+.globe-status.on { opacity: 1; transform: none; }
+.globe-hint.on { opacity: 1; }
+.globe-progress { position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%); width: 160px; height: 2px; background: rgba(255,255,255,.14); }
+.globe-progress i { display: block; height: 100%; background: linear-gradient(90deg, #a855f7, #ec4899); transform-origin: left; transform: scaleX(0); }
+
+/* --- шапка над тёмным блоком тоже тёмная --- */
+.header { transition: border-color .3s, background .3s; }
+.header.on-dark { background: rgba(4,3,10,.72); border-bottom-color: rgba(255,255,255,.08); }
+.header.on-dark .logo, .header.on-dark .nav a:hover { color: #fff; }
+.header.on-dark .logo-mark { color: #fff; }
+.header.on-dark .nav a { color: #b6a8c9; }
+.header.on-dark .btn-dark { background: #fff; color: #1a0a14; }
+
+/* анимации меток не работают, пока блок не на экране */
+.globe-sec.offscreen .gm u, .globe-sec.offscreen .g-packets { animation-play-state: paused; }
+
+@media (max-width: 1000px) {
+  .globe-sticky { --S: min(74vw, calc(100vh - 410px)); padding: 78px 16px 28px; justify-content: flex-start; }
+  .globe-stage { grid-template-columns: minmax(0, 1fr); gap: 6px; justify-items: center; }
+  .globe-box { order: -1; margin: 6vw 0 5vw; }
+  .gfeat { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; width: 100%; max-width: 520px; text-align: center !important; }
+  .gfeat li::before { margin: 0 auto 8px !important; width: 26px; }
+  .gfeat b { font-size: 16px; }
+  .gfeat span { font-size: 12.5px; margin-top: 3px; }
+  .gfeat + .globe-box { order: -1; }
+  .globe-progress { display: none; }
+  .globe-foot { min-height: 58px; margin-top: 10px; }
+  .globe-status { font-size: 13px; padding: 7px 14px; }
+  .gl-chip { font-size: 12px; padding: 3px 9px 3px 4px; }
+  .gm i { width: 36px; height: 36px; }
+}
+@media (max-width: 1000px) and (max-height: 720px) {
+  .gfeat span { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .gfeat li, .globe-status, .globe-hint { opacity: 1; transform: none; }
+}
+/* планета: больше воздуха между шаром и текстом, подписи не лезут на заголовок */
+.globe-sticky { --S: min(calc(100vh - 350px), 40vw, 580px); }
+.globe-stage { gap: clamp(60px, 7vw, 120px); }
+.globe-head { z-index: 2; margin-bottom: 18px; }
+@media (max-width: 1000px) {
+  .globe-sticky { --S: min(74vw, calc(100vh - 410px)); }
+  .globe-stage { gap: 6px; }
+  .globe-head { margin-bottom: 0; }
+}
