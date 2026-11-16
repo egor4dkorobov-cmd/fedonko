@@ -95,15 +95,13 @@ h1, h2, h3 { letter-spacing: -0.025em; line-height: 1.15; }
 
 .grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 20px; }
 .card { background: #fff; border: 1px solid var(--line); border-radius: 24px; padding: 26px 28px; display: flex; flex-direction: column; gap: 16px; min-width: 0; }
-/* компьютер: «Подписка» — узкая вертикальная карточка слева, рядом «Пригласите друзей»;
-   ниже — «Баланс» и «Устройства» */
-.card-sub { grid-column: span 4; }
-.card-ref { grid-column: span 8; }
-.card-balance { grid-column: span 4; }
-.card-dev { grid-column: span 8; }
-@media (min-width: 1001px) {
-  .card-sub { order: 1; } .card-ref { order: 2; } .card-balance { order: 3; } .card-dev { order: 4; } .card-hist { order: 5; }
-}
+/* компьютер: две независимые колонки — слева «Подписка» и «Баланс»,
+   справа «Пригласите друзей» и «Устройства». Нижняя карточка в колонке
+   растягивается, чтобы низ обеих колонок совпадал */
+.col { display: flex; flex-direction: column; gap: 20px; min-width: 0; }
+.col-l { grid-column: span 4; }
+.col-r { grid-column: span 8; }
+.col > .card:last-child { flex: 1; }
 .card-hist { grid-column: span 12; }
 .card-top { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
 .card h2 { font-size: 20px; }
@@ -235,7 +233,7 @@ h1, h2, h3 { letter-spacing: -0.025em; line-height: 1.15; }
 
 /* ----- планшет и телефон ----- */
 @media (max-width: 1000px) {
-  .card-sub, .card-balance, .card-ref, .card-dev { grid-column: span 12; }
+  .col-l, .col-r { grid-column: span 12; }
   .card-balance .btn { margin-top: 4px; }
 }
 @media (max-width: 640px) {
@@ -285,3 +283,19 @@ h1, h2, h3 { letter-spacing: -0.025em; line-height: 1.15; }
   .card-sub .ring { width: 184px; height: 184px; }
   .card-sub .ring-text b { font-size: 46px; }
 }
+
+/* ===== Список друзей: раскрывается по кнопке ===== */
+.ref-toggle { display: inline-flex; align-items: center; gap: 6px; height: 40px; padding: 0 16px; border: 1.5px solid var(--line); border-radius: 999px; background: #fff; font: inherit; font-size: 14.5px; font-weight: 600; color: var(--text); cursor: pointer; transition: border-color .2s, background .2s, color .2s; }
+.ref-toggle:hover { border-color: #d9b7c8; background: #fdf7fa; color: var(--accent); }
+.ref-toggle:focus-visible { outline: 3px solid rgba(219,39,119,.4); outline-offset: 2px; }
+.ref-toggle .rt-count { color: var(--muted); font-weight: 500; }
+.ref-toggle svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; transition: transform .3s; }
+.ref-toggle[aria-expanded="true"] svg { transform: rotate(180deg); }
+.ref-toggle.bump .rt-count { animation: bump .6s ease; }
+@keyframes bump { 40% { color: var(--pink); transform: scale(1.25); } }
+.ref-toggle .rt-count { display: inline-block; }
+.ref-drawer { display: grid; grid-template-rows: 0fr; opacity: 0; visibility: hidden; margin-top: -8px; transition: grid-template-rows .4s ease, opacity .3s ease, margin-top .4s ease, visibility 0s linear .4s; }
+.ref-drawer.open { grid-template-rows: 1fr; opacity: 1; visibility: visible; margin-top: 0; transition-delay: 0s; }
+.ref-drawer-in { overflow: hidden; min-height: 0; }
+@media (prefers-reduced-motion: reduce) { .ref-drawer, .ref-toggle svg { transition: none; } }
+.card-dev .js-add-dev { margin-top: auto; }

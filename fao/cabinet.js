@@ -273,6 +273,7 @@
     const paidRefs = S.referrals.filter((r) => r.paid.length);
     const earned = S.referrals.reduce((s, r) => s + r.paid.reduce((a, p) => a + bonus(p), 0), 0);
     countTo($('.st-invited'), S.referrals.length, (v) => Math.round(v));
+    $('.rt-count').textContent = `(${S.referrals.length})`;
     countTo($('.st-paid'), paidRefs.length, (v) => Math.round(v));
     countTo($('.st-earned'), earned, money);
 
@@ -286,6 +287,14 @@
     }).join('') : '<li class="dev-empty" style="display:block">Пока никого. Отправьте ссылку другу!</li>';
     S.referrals.forEach((r) => delete r.fresh);
   }
+  const drawer = $('.ref-drawer'), toggle = $('.js-ref-toggle');
+  function setDrawer(open) {
+    drawer.classList.toggle('open', open);
+    drawer.inert = !open;
+    toggle.setAttribute('aria-expanded', open);
+    $('.rt-text', toggle).textContent = open ? 'Скрыть друзей' : 'Показать друзей';
+  }
+  toggle.addEventListener('click', () => setDrawer(!drawer.classList.contains('open')));
   const bonus = (p) => Math.round(p * REF_PERCENT / 100);
 
   $('.js-copy').addEventListener('click', async () => {
@@ -301,12 +310,22 @@
   });
 
   // демо: один из друзей (или новый) оплатил год → нам 10%
-  const NEW_NAMES = ['Вика Л.', 'Саша М.', 'Катя Р.', 'Тимур Б.', 'Лена Ф.', 'Глеб Н.'];
+  // имена для новых демо-друзей — без повторов
+  const NEW_NAMES = ['Вика Л.', 'Саша М.', 'Катя Р.', 'Тимур Б.', 'Лена Ф.', 'Глеб Н.', 'Полина Е.', 'Артём В.',
+    'Настя Г.', 'Кирилл О.', 'Даша У.', 'Никита Ж.', 'Соня З.', 'Макс Ш.', 'Алина Ч.', 'Егор Я.'];
+  function newName() {
+    const used = S.referrals.map((x) => x.name);
+    const free = NEW_NAMES.find((n) => !used.includes(n));
+    if (free) return free;
+    let k = 2, n;                                 // все имена заняты — добавляем номер
+    do { n = NEW_NAMES[S.referrals.length % NEW_NAMES.length].replace('.', '. ' + k++); } while (used.includes(n));
+    return n;
+  }
   $('.js-demo-pay').addEventListener('click', () => {
     const price = PLANS[12].price;
     let r = S.referrals.find((x) => !x.paid.length);
     if (!r) {
-      r = { id: uid(), name: NEW_NAMES[S.referrals.length % NEW_NAMES.length], date: Date.now(), paid: [] };
+      r = { id: uid(), name: newName(), date: Date.now(), paid: [] };
       S.referrals.push(r);
     }
     r.paid.push(price); r.fresh = true;
@@ -315,6 +334,7 @@
     S.payments.unshift({ id: uid(), kind: 'ref', title: 'Бонус за друга · ' + r.name, sum: b, date: Date.now() });
     save(); render();
     flash($('.card-balance')); flash($('.card-ref'));
+    const tg = $('.js-ref-toggle'); tg.classList.remove('bump'); void tg.offsetWidth; tg.classList.add('bump');
     toast(`${r.name} оплатил(а) год — вам +${money(b)}`);
   });
 

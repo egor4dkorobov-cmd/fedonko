@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="cabinet.css?v=202611160850">
+<link rel="stylesheet" href="cabinet.css?v=202611161307">
 </head>
 <body>
 
@@ -102,6 +102,8 @@
     <div class="grid">
 
       <!-- Подписка -->
+      <!-- левая колонка: подписка и баланс -->
+      <div class="col col-l">
       <article class="card card-sub" aria-labelledby="t-sub">
         <div class="card-top">
           <h2 id="t-sub">Подписка</h2>
@@ -139,6 +141,10 @@
       </article>
 
       <!-- Рефералы -->
+      </div>
+
+      <!-- правая колонка: друзья и устройства -->
+      <div class="col col-r">
       <article class="card card-ref" aria-labelledby="t-ref">
         <div class="card-top">
           <h2 id="t-ref">Пригласите друзей</h2>
@@ -162,10 +168,16 @@
           <div><b class="st-earned">0 ₽</b><span>Заработано</span></div>
         </div>
         <div class="ref-list-head">
-          <h3>Ваши друзья</h3>
+          <button type="button" class="ref-toggle js-ref-toggle" aria-expanded="false" aria-controls="ref-drawer">
+            <span class="rt-text">Показать друзей</span> <span class="rt-count"></span>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
           <button type="button" class="link-btn js-demo-pay" title="Только для демонстрации">▶ Демо: друг оплатил год</button>
         </div>
-        <ul class="ref-list"></ul>
+        <!-- список друзей: сначала закрыт, открывается кнопкой выше -->
+        <div class="ref-drawer" id="ref-drawer" inert>
+          <div class="ref-drawer-in"><ul class="ref-list" aria-label="Ваши друзья"></ul></div>
+        </div>
       </article>
 
       <!-- Устройства -->
@@ -180,6 +192,8 @@
       </article>
 
       <!-- История платежей -->
+      </div>
+
       <article class="card card-hist" aria-labelledby="t-hist">
         <div class="card-top">
           <h2 id="t-hist">История платежей</h2>
@@ -251,6 +265,6 @@
 
 <div class="toast" role="status" aria-live="polite"></div>
 
-<script src="cabinet.js?v=202611160850"></script>
+<script src="cabinet.js?v=202611161307"></script>
 </body>
 </html>
