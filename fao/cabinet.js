@@ -304,14 +304,20 @@
     }).join('') : '<li class="dev-empty" style="display:block">Пока никого. Отправьте ссылку другу!</li>';
     S.referrals.forEach((r) => delete r.fresh);
   }
-  const drawer = $('.ref-drawer'), toggle = $('.js-ref-toggle');
-  function setDrawer(open) {
-    drawer.classList.toggle('open', open);
-    drawer.inert = !open;
-    toggle.setAttribute('aria-expanded', open);
-    $('.rt-text', toggle).textContent = open ? 'Скрыть друзей' : 'Показать друзей';
+  // раскрывающиеся списки («Ваши друзья», «История платежей»): сначала закрыты
+  function makeDrawer(btnSel, openText, closedText) {
+    const btn = $(btnSel), box = $('#' + btn.getAttribute('aria-controls'));
+    btn.addEventListener('click', () => {
+      const open = !box.classList.contains('open');
+      box.classList.toggle('open', open);
+      box.inert = !open;
+      btn.setAttribute('aria-expanded', open);
+      $('.rt-text', btn).textContent = open ? openText : closedText;
+    });
   }
-  toggle.addEventListener('click', () => setDrawer(!drawer.classList.contains('open')));
+  makeDrawer('.js-ref-toggle', 'Скрыть друзей', 'Показать друзей');
+  makeDrawer('.js-hist-toggle', 'Скрыть', 'Показать');
+  function bump(btn) { btn.classList.remove('bump'); void btn.offsetWidth; btn.classList.add('bump'); }
   const bonus = (p) => Math.round(p * REF_PERCENT / 100);
 
   $('.js-copy').addEventListener('click', async () => {
@@ -351,7 +357,7 @@
     S.payments.unshift({ id: uid(), kind: 'ref', title: 'Бонус за друга · ' + r.name, sum: b, date: Date.now() });
     save(); render();
     flash($('.card-balance')); flash($('.card-ref'));
-    const tg = $('.js-ref-toggle'); tg.classList.remove('bump'); void tg.offsetWidth; tg.classList.add('bump');
+    bump($('.js-ref-toggle'));
     toast(`${r.name} оплатил(а) год — вам +${money(b)}`);
   });
 
@@ -427,8 +433,13 @@
     out: '<path d="M12 3 5 6v5.5c0 4.6 3 8 7 9.5 4-1.5 7-4.9 7-9.5V6l-7-3z"/>',
     ref: '<circle cx="9" cy="8" r="3.2"/><path d="M3.5 19c.6-3.2 2.8-5 5.5-5s4.9 1.8 5.5 5M17 8v6M14 11h6"/>',
   };
+  let histCount = null;
   function renderHistory() {
-    const list = S.payments.slice().sort((a, b) => b.date - a.date).slice(0, 12);
+    const list = S.payments.slice().sort((a, b) => b.date - a.date);
+    const btn = $('.js-hist-toggle');
+    $('.rt-count', btn).textContent = `(${list.length})`;
+    if (histCount !== null && list.length > histCount) bump(btn);   // новый платёж — подсвечиваем число
+    histCount = list.length;
     $('.hist-list').innerHTML = list.length ? list.map((p) => `
       <li class="h-${p.kind}">
         <span class="h-ic" aria-hidden="true"><svg viewBox="0 0 24 24">${H_ICONS[p.kind]}</svg></span>

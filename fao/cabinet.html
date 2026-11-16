@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="cabinet.css?v=202611161541">
+<link rel="stylesheet" href="cabinet.css?v=202611162315">
 </head>
 <body>
 
@@ -201,8 +201,15 @@
       <article class="card card-hist" aria-labelledby="t-hist">
         <div class="card-top">
           <h2 id="t-hist">История платежей</h2>
+          <button type="button" class="ref-toggle js-hist-toggle" aria-expanded="false" aria-controls="hist-drawer">
+            <span class="rt-text">Показать</span> <span class="rt-count"></span>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
         </div>
-        <ul class="hist-list"></ul>
+        <!-- список платежей: сначала закрыт, открывается кнопкой выше -->
+        <div class="ref-drawer" id="hist-drawer" inert>
+          <div class="ref-drawer-in"><ul class="hist-list"></ul></div>
+        </div>
       </article>
     </div>
 
@@ -269,6 +276,6 @@
 
 <div class="toast" role="status" aria-live="polite"></div>
 
-<script src="cabinet.js?v=202611161541"></script>
+<script src="cabinet.js?v=202611162315"></script>
 </body>
 </html>
