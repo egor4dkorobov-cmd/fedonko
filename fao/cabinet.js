@@ -368,6 +368,33 @@
     tv: '<rect x="2.5" y="4.5" width="19" height="12.5" rx="2"/><path d="M8 20.5h8"/>',
     tablet: '<rect x="5" y="2.5" width="14" height="19" rx="2.5"/><path d="M11 18.5h2"/>',
   };
+  // виды устройств в окне подключения: значок, как писать в тексте, название по умолчанию
+  const DEV_TYPES = {
+    iphone: { icon: 'phone', plat: 'iPhone', def: 'Мой iPhone' },
+    android: { icon: 'phone', plat: 'Android', def: 'Мой Android' },
+    windows: { icon: 'laptop', plat: 'компьютер с Windows', def: 'Компьютер Windows' },
+    mac: { icon: 'laptop', plat: 'Mac', def: 'Мой Mac' },
+    tv: { icon: 'tv', plat: 'телевизор', def: 'Телевизор' },
+  };
+  const iconOf = (d) => DEV_ICONS[(DEV_TYPES[d.type] || {}).icon || d.type] || DEV_ICONS.phone;
+  // определяем, с какого устройства открыт кабинет
+  function detectType() {
+    const ua = navigator.userAgent, touch = navigator.maxTouchPoints > 1;
+    if (/TV|SmartTV|AFT|BRAVIA|Tizen|Web0S/i.test(ua)) return 'tv';
+    if (/iPhone|iPad|iPod/.test(ua) || (/Macintosh/.test(ua) && touch)) return 'iphone';
+    if (/Android/i.test(ua)) return 'android';
+    if (/Mac/.test(ua)) return 'mac';
+    if (/Win/.test(ua)) return 'windows';
+    return null;
+  }
+  // личный ключ доступа (в демо — случайный; настоящий будет выдавать сервер)
+  function makeKey() {
+    const abc = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789';
+    let k = '';
+    const rnd = (window.crypto && crypto.getRandomValues) ? crypto.getRandomValues(new Uint8Array(28)) : Array.from({ length: 28 }, () => Math.random() * 256);
+    rnd.forEach((b) => (k += abc[b % abc.length]));
+    return 'fao://' + k;
+  }
   function ago(t) {
     const m = Math.round((Date.now() - t) / 60000);
     if (m < 2) return 'в сети сейчас';
@@ -383,9 +410,14 @@
     $$('.dev-bar i').forEach((i, k) => i.classList.toggle('on', k < n));
     $('.dev-list').innerHTML = n ? S.devices.map((d) => `
       <li>
-        <span class="dev-ic" aria-hidden="true"><svg viewBox="0 0 24 24">${DEV_ICONS[d.type] || DEV_ICONS.phone}</svg></span>
-        <span class="dev-txt"><b>${esc(d.name)}</b><span>${esc(d.where)} · ${ago(d.last)}</span></span>
-        <button type="button" class="dev-off" data-id="${d.id}" aria-label="Отключить ${esc(d.name)}">Отключить</button>
+        <span class="dev-ic" aria-hidden="true"><svg viewBox="0 0 24 24">${iconOf(d)}</svg></span>
+        <span class="dev-txt"><b>${esc(d.name)}</b>${d.pending
+          ? '<span class="dev-wait">Ожидает первого подключения</span>'
+          : `<span>${esc(d.where)} · ${ago(d.last)}</span>`}</span>
+        <span class="dev-acts">
+          <button type="button" class="dev-key" data-id="${d.id}" aria-label="Показать ключ ${esc(d.name)}">Ключ</button>
+          <button type="button" class="dev-off" data-id="${d.id}" aria-label="Отключить ${esc(d.name)}">Отключить</button>
+        </span>
       </li>`).join('') : '<li class="dev-empty" style="border:0;justify-content:center">Нет подключённых устройств</li>';
     const add = $('.js-add-dev');
     add.disabled = n >= MAX_DEVICES;
@@ -394,6 +426,8 @@
   // «Отключить» сначала спрашивает подтверждение
   let devToOff = null;
   $('.dev-list').addEventListener('click', (e) => {
+    const k = e.target.closest('.dev-key');
+    if (k) { const d = S.devices.find((x) => x.id === k.dataset.id); if (d) showKey(d, false); return; }
     const b = e.target.closest('.dev-off');
     if (!b) return;
     const d = S.devices.find((x) => x.id === b.dataset.id);
@@ -412,18 +446,79 @@
     toast(`${d ? d.name : 'Устройство'} отключено`);
     const next = $('.dev-off') || $('.js-add-dev'); next.focus({ preventScroll: true });
   });
-  const NEW_DEVICES = [
-    { type: 'phone', name: 'Android-телефон' }, { type: 'tablet', name: 'iPad' },
-    { type: 'laptop', name: 'Ноутбук Windows' }, { type: 'tv', name: 'Android TV' }, { type: 'phone', name: 'iPhone 13' },
-  ];
+  /* ---------- подключение устройства: окно в 2 шага ---------- */
+  const adModal = $('#m-adddev'), ad1 = $('.ad-step-1', adModal), ad2 = $('.ad-step-2', adModal);
+  const adName = $('input[name=dname]', ad1);
+  let adNameTouched = false;
+  $$('input[name=dtype]', ad1).forEach((r) => r.addEventListener('change', () => {
+    // название меняем вместе с типом, пока человек не написал своё
+    if (!adNameTouched) adName.value = uniqueName(DEV_TYPES[r.value].def);
+    setErr(ad1, '');
+  }));
+  adName.addEventListener('input', () => { adNameTouched = true; setErr(ad1, ''); });
+  function uniqueName(base) {
+    const used = S.devices.map((d) => d.name);
+    if (!used.includes(base)) return base;
+    let k = 2; while (used.includes(base + ' ' + k)) k++;
+    return base + ' ' + k;
+  }
+
   $('.js-add-dev').addEventListener('click', () => {
     if (S.devices.length >= MAX_DEVICES) return;
     if (!isOn()) { toast('Сначала продлите подписку'); openModal('#m-plans'); return; }
-    const names = S.devices.map((d) => d.name);
-    const pick = NEW_DEVICES.find((d) => !names.includes(d.name)) || NEW_DEVICES[0];
-    S.devices.push({ id: uid(), ...pick, where: 'Москва', last: Date.now() });
+    const mine = detectType();
+    $$('.ad-type', ad1).forEach((l) => {
+      const v = $('input', l).value;
+      $('.ad-this', l).hidden = v !== mine;
+      $('input', l).checked = v === (mine || 'iphone');
+    });
+    adNameTouched = false;
+    adName.value = uniqueName(DEV_TYPES[mine || 'iphone'].def);
+    setErr(ad1, '');
+    ad1.hidden = false; ad2.hidden = true;
+    openModal('#m-adddev');
+  });
+
+  ad1.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const type = $('input[name=dtype]:checked', ad1).value;
+    const name = adName.value.replace(/\s+/g, ' ').trim();
+    if (!name) { setErr(ad1, 'Напишите название устройства', [adName]); adName.focus(); return; }
+    if (S.devices.some((d) => d.name.toLowerCase() === name.toLowerCase())) {
+      setErr(ad1, 'Устройство с таким названием уже есть', [adName]); adName.focus(); return;
+    }
+    if (S.devices.length >= MAX_DEVICES) return;
+    // ключ выдан — место под устройство занято
+    const d = { id: uid(), type, name, where: 'Москва', last: Date.now(), key: makeKey(), pending: true };
+    S.devices.push(d);
     save(); renderDevices(); flash($('.card-dev'));
-    toast(`${pick.name} подключено`);
+    showKey(d, true);
+    toast(`Ключ для «${name}» создан`);
+  });
+
+  // шаг 2: ключ и QR (и для нового устройства, и по кнопке «Ключ» в списке)
+  function showKey(d, fresh) {
+    if (!d.key) { d.key = makeKey(); save(); }
+    $('.ad-name', ad2).textContent = d.name;
+    $('.ad-plat', ad2).textContent = (DEV_TYPES[d.type] || {}).plat || 'устройство';
+    $('.ad-sub', ad2).textContent = fresh ? 'Шаг 2 из 2 · добавьте ключ в VPN-приложение' : 'Отсканируйте QR-код или скопируйте ключ';
+    $('.ad-key-input', ad2).value = d.key;
+    $('.ad-qr', ad2).innerHTML = window.FAOqr ? window.FAOqr(d.key) : '';
+    $('.js-ad-copy span', ad2).textContent = 'Скопировать';
+    ad1.hidden = true; ad2.hidden = false;
+    if (adModal.hidden) openModal('#m-adddev');
+    $('.js-ad-copy', ad2).focus({ preventScroll: true });
+  }
+  $('.js-ad-copy', ad2).addEventListener('click', async () => {
+    const input = $('.ad-key-input', ad2);
+    let ok = false;
+    try { await navigator.clipboard.writeText(input.value); ok = true; } catch (e) {
+      input.focus(); input.select();
+      try { ok = document.execCommand('copy'); } catch (e2) { ok = false; }
+    }
+    const lbl = $('.js-ad-copy span', ad2);
+    if (ok) { lbl.textContent = 'Скопировано'; toast('Ключ скопирован'); setTimeout(() => (lbl.textContent = 'Скопировать'), 1800); }
+    else { input.select(); toast('Выделили ключ — скопируйте его вручную'); }
   });
   const isOn = () => S.until && S.until > Date.now();
 

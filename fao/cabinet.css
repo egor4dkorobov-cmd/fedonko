@@ -346,3 +346,46 @@ h1, h2, h3 { letter-spacing: -0.025em; line-height: 1.15; }
   transform: scale(1.15);
 }
 .card-dev .js-add-dev:not(:disabled):hover { background: #fff; border-color: transparent; }
+
+/* ===== Подключение устройства: окно ===== */
+.modal-add { width: min(540px, 100%); }
+.ad-step { display: flex; flex-direction: column; gap: 14px; }
+.ad-types { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; }
+.ad-type { position: relative; display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 12px 4px 10px; border: 1.5px solid var(--line); border-radius: 16px; cursor: pointer; text-align: center; transition: border-color .2s, background .2s; }
+.ad-type input { position: absolute; opacity: 0; pointer-events: none; }
+.ad-type:hover { border-color: #d9b7c8; }
+.ad-type:has(input:checked) { border-color: var(--accent); background: #faf5ff; }
+.ad-type:has(input:focus-visible) { outline: 3px solid rgba(219,39,119,.45); outline-offset: 2px; }
+.ad-type-name { font-size: 13.5px; font-weight: 600; }
+.ad-this { position: absolute; top: -9px; left: 50%; transform: translateX(-50%); white-space: nowrap; padding: 1px 7px; border-radius: 999px; background: var(--grad); color: #fff; font-size: 10.5px; font-weight: 600; }
+.ad-key { display: grid; grid-template-columns: 168px minmax(0, 1fr); gap: 18px; align-items: center; }
+.ad-qr { padding: 8px; border: 1.5px solid transparent; border-radius: 18px; background: linear-gradient(#fff, #fff) padding-box, var(--grad) border-box; }
+.ad-qr svg { display: block; width: 100%; height: auto; border-radius: 8px; }
+.ad-steps { padding-left: 20px; display: flex; flex-direction: column; gap: 8px; font-size: 14px; color: var(--muted); }
+.ad-steps b { color: var(--text); }
+.ad-keyrow { display: flex; gap: 8px; }
+.ad-keyrow .ref-input { flex: 1; min-width: 0; font-size: 13.5px; }
+.ad-warn { font-size: 12.5px; color: var(--muted); }
+.dev-acts { display: flex; gap: 2px; flex-shrink: 0; }
+.dev-key { font-size: 13px; font-weight: 600; color: var(--muted); padding: 6px 10px; border-radius: 999px; }
+.dev-key:hover { color: var(--accent); background: #f6e8f8; }
+.dev-key:focus-visible { outline: 3px solid rgba(219,39,119,.45); outline-offset: 2px; }
+.dev-wait { display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; color: #b45309; }
+.dev-wait::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: #f59e0b; animation: waitPulse 1.6s ease-in-out infinite; }
+@keyframes waitPulse { 50% { opacity: .35; } }
+@media (max-width: 640px) {
+  .ad-types { grid-template-columns: repeat(3, minmax(0, 1fr)); row-gap: 14px; }
+  .ad-key { grid-template-columns: 1fr; justify-items: center; }
+  .ad-qr { width: 190px; }
+  .ad-keyrow { flex-direction: column; }
+}
+@media (prefers-reduced-motion: reduce) { .dev-wait::before { animation: none; } }
+@media (max-width: 640px) {
+  .ad-keyrow .ref-input { flex: none; height: 48px; }
+  .dev-list li { padding: 10px; gap: 10px; }
+  .dev-key, .dev-off { padding: 6px 8px; }
+}
+@media (max-width: 640px) {
+  .dev-list li { flex-wrap: wrap; row-gap: 4px; }
+  .dev-acts { width: 100%; justify-content: flex-end; padding-top: 6px; border-top: 1px dashed var(--line); }
+}

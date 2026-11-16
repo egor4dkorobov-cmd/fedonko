@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="cabinet.css?v=202611162323">
+<link rel="stylesheet" href="cabinet.css?v=202611162341">
 </head>
 <body>
 
@@ -260,6 +260,48 @@
   </div>
 </div>
 
+<!-- ===== Окно: подключение устройства (шаг 1 — выбор, шаг 2 — ключ и QR) ===== -->
+<div class="modal" id="m-adddev" role="dialog" aria-modal="true" aria-labelledby="ad-title" hidden>
+  <div class="modal-box modal-add">
+    <button type="button" class="modal-x js-close" aria-label="Закрыть">✕</button>
+    <form class="ad-step ad-step-1" novalidate>
+      <h2 id="ad-title">Подключить устройство</h2>
+      <p class="muted">Шаг 1 из 2 · какое устройство подключаем?</p>
+      <div class="ad-types" role="radiogroup" aria-label="Тип устройства">
+          <label class="ad-type"><input type="radio" name="dtype" value="iphone"><span class="dev-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/></svg></span><span class="ad-type-name">iPhone</span><small class="ad-this" hidden>это устройство</small></label>
+          <label class="ad-type"><input type="radio" name="dtype" value="android"><span class="dev-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/></svg></span><span class="ad-type-name">Android</span><small class="ad-this" hidden>это устройство</small></label>
+          <label class="ad-type"><input type="radio" name="dtype" value="windows"><span class="dev-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="11" rx="2"/><path d="M2 19h20"/></svg></span><span class="ad-type-name">Windows</span><small class="ad-this" hidden>это устройство</small></label>
+          <label class="ad-type"><input type="radio" name="dtype" value="mac"><span class="dev-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="11" rx="2"/><path d="M2 19h20"/></svg></span><span class="ad-type-name">Mac</span><small class="ad-this" hidden>это устройство</small></label>
+          <label class="ad-type"><input type="radio" name="dtype" value="tv"><span class="dev-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="2.5" y="4.5" width="19" height="12.5" rx="2"/><path d="M8 20.5h8"/></svg></span><span class="ad-type-name">ТВ</span><small class="ad-this" hidden>это устройство</small></label>
+      </div>
+      <label class="field">
+        <span>Название — чтобы не перепутать</span>
+        <input type="text" name="dname" maxlength="30" autocomplete="off">
+      </label>
+      <p class="form-error" role="alert"></p>
+      <button type="submit" class="btn btn-accent btn-block">Получить ключ</button>
+    </form>
+    <div class="ad-step ad-step-2" hidden>
+      <h2 class="ad-title2">Ключ для «<span class="ad-name"></span>»</h2>
+      <p class="muted ad-sub">Шаг 2 из 2 · добавьте ключ в VPN-приложение</p>
+      <div class="ad-key">
+        <div class="ad-qr"></div>
+        <ol class="ad-steps">
+          <li>Установите VPN-приложение на <b class="ad-plat"></b>.</li>
+          <li>В приложении нажмите «Добавить» и отсканируйте QR-код — или скопируйте ключ ниже и вставьте.</li>
+          <li>Включите VPN. Как только устройство подключится, статус в кабинете обновится.</li>
+        </ol>
+      </div>
+      <div class="ad-keyrow">
+        <input class="ref-input ad-key-input" readonly aria-label="Ключ доступа">
+        <button type="button" class="btn btn-accent js-ad-copy"><span>Скопировать</span></button>
+      </div>
+      <p class="ad-warn">Ключ личный: не отправляйте его другим людям. Один ключ — одно устройство.</p>
+      <button type="button" class="btn btn-ghost btn-block js-close">Готово</button>
+    </div>
+  </div>
+</div>
+
 <!-- ===== Окно: подтверждение отключения устройства ===== -->
 <div class="modal" id="m-devoff" role="alertdialog" aria-modal="true" aria-labelledby="md-title" aria-describedby="md-text" hidden>
   <div class="modal-box modal-confirm">
@@ -276,6 +318,7 @@
 
 <div class="toast" role="status" aria-live="polite"></div>
 
-<script src="cabinet.js?v=202611162323"></script>
+<script src="qr.js?v=202611162341"></script>
+<script src="cabinet.js?v=202611162341"></script>
 </body>
 </html>
