@@ -328,3 +328,21 @@ h1, h2, h3 { letter-spacing: -0.025em; line-height: 1.15; }
   .card-hist .ref-toggle { width: 36px; padding: 0; justify-content: center; }
   .card-hist .ref-toggle .rt-text { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 }
+
+/* ===== «Подключить устройство»: при наведении — градиентная обводка и фиолетовый «+» ===== */
+.card-dev .js-add-dev { position: relative; }
+.card-dev .js-add-dev::before {
+  content: ""; position: absolute; inset: -1.5px; border-radius: inherit; padding: 1.5px;
+  background: var(--grad); pointer-events: none; opacity: 0; transition: opacity .25s ease;
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude;
+}
+.card-dev .js-add-dev .plus { display: inline-block; font-weight: 700; margin-right: 2px; transition: transform .25s ease; }
+.card-dev .js-add-dev:not(:disabled):hover::before,
+.card-dev .js-add-dev:not(:disabled):focus-visible::before { opacity: 1; }
+.card-dev .js-add-dev:not(:disabled):hover .plus,
+.card-dev .js-add-dev:not(:disabled):focus-visible .plus {
+  background: linear-gradient(135deg, #7c3aed, #c084fc); -webkit-background-clip: text; background-clip: text; color: transparent;
+  transform: scale(1.15);
+}
+.card-dev .js-add-dev:not(:disabled):hover { background: #fff; border-color: transparent; }

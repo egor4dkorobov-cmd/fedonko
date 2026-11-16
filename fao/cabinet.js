@@ -389,7 +389,7 @@
       </li>`).join('') : '<li class="dev-empty" style="border:0;justify-content:center">Нет подключённых устройств</li>';
     const add = $('.js-add-dev');
     add.disabled = n >= MAX_DEVICES;
-    add.textContent = n >= MAX_DEVICES ? 'Подключено максимум — 5 устройств' : '+ Подключить устройство';
+    add.innerHTML = n >= MAX_DEVICES ? 'Подключено максимум — 5 устройств' : '<span class="plus" aria-hidden="true">+</span> Подключить устройство';
   }
   // «Отключить» сначала спрашивает подтверждение
   let devToOff = null;
