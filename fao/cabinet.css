@@ -97,7 +97,7 @@ h1, h2, h3 { letter-spacing: -0.025em; line-height: 1.15; }
 
 .grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 20px; }
 .card { background: #fff; border: 1px solid var(--line); border-radius: 24px; padding: 26px 28px; display: flex; flex-direction: column; gap: 16px; min-width: 0; }
-/* компьютер: две независимые колонки — слева «Подписка» и «Баланс»,
+/* компьютер: две независимые колонки — слева «Баланс» и «Подписка»,
    справа «Пригласите друзей» и «Устройства». Нижняя карточка в колонке
    растягивается, чтобы низ обеих колонок совпадал */
 .col { display: flex; flex-direction: column; gap: 20px; min-width: 0; }

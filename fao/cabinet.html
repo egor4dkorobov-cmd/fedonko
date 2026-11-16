@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="cabinet.css?v=202611161537">
+<link rel="stylesheet" href="cabinet.css?v=202611161541">
 </head>
 <body>
 
@@ -106,8 +106,19 @@
     <div class="grid">
 
       <!-- Подписка -->
-      <!-- левая колонка: подписка и баланс -->
+      <!-- левая колонка: баланс и подписка -->
       <div class="col col-l">
+      <article class="card card-balance" aria-labelledby="t-bal">
+        <div class="card-top">
+          <h2 id="t-bal">Баланс</h2>
+          <svg class="card-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="18" height="13" rx="3"/><path d="M3 10h18M16 14.5h2"/></svg>
+        </div>
+        <p class="balance"><b class="balance-num">0</b> <span>₽</span></p>
+        <p class="muted small">Деньги на балансе идут на оплату подписки. Сюда же приходят 10% от оплат ваших друзей.</p>
+        <button type="button" class="btn btn-dark btn-block js-open-topup">Пополнить</button>
+      </article>
+
+      <!-- Баланс -->
       <article class="card card-sub" aria-labelledby="t-sub">
         <div class="card-top">
           <h2 id="t-sub">Подписка</h2>
@@ -131,17 +142,6 @@
             <div><dt>Оплачена</dt><dd class="sf-paid"></dd></div>
           </dl>
         </div>
-      </article>
-
-      <!-- Баланс -->
-      <article class="card card-balance" aria-labelledby="t-bal">
-        <div class="card-top">
-          <h2 id="t-bal">Баланс</h2>
-          <svg class="card-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="18" height="13" rx="3"/><path d="M3 10h18M16 14.5h2"/></svg>
-        </div>
-        <p class="balance"><b class="balance-num">0</b> <span>₽</span></p>
-        <p class="muted small">Деньги на балансе идут на оплату подписки. Сюда же приходят 10% от оплат ваших друзей.</p>
-        <button type="button" class="btn btn-dark btn-block js-open-topup">Пополнить</button>
       </article>
 
       <!-- Рефералы -->
@@ -269,6 +269,6 @@
 
 <div class="toast" role="status" aria-live="polite"></div>
 
-<script src="cabinet.js?v=202611161537"></script>
+<script src="cabinet.js?v=202611161541"></script>
 </body>
 </html>
