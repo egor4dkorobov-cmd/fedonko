@@ -113,15 +113,23 @@
      ========================================================= */
   const auth = $('#auth'), dash = $('#dash');
   const fEmail = $('#step-email'), fCode = $('#step-code');
-  const emailIn = fEmail.querySelector('input');
+  const nameIn = fEmail.querySelector('input[name=name]');
+  const emailIn = fEmail.querySelector('input[name=email]');
   const boxes = $$('.code-boxes input', fCode);
-  let pendingEmail = '';
+  let pendingEmail = '', pendingName = '';
+  // имя: убираем лишние пробелы, первая буква — заглавная
+  const cleanName = (v) => v.replace(/\s+/g, ' ').trim().replace(/^./, (c) => c.toUpperCase());
+  // как обращаться, если имени нет (старые сохранённые данные)
+  const nameOf = (st) => st.name || st.email.split('@')[0];
 
   function showAuth() {
     auth.hidden = false; dash.hidden = true; $('.user').hidden = true;
     fEmail.hidden = false; fCode.hidden = true;
-    emailIn.value = ''; setErr(fEmail, '');
-    emailIn.focus({ preventScroll: true });
+    const saved = load();                         // подставляем имя и почту прошлого входа
+    nameIn.value = saved && saved.name ? saved.name : '';
+    emailIn.value = saved && saved.email ? saved.email : '';
+    setErr(fEmail, '');
+    (nameIn.value ? emailIn : nameIn).focus({ preventScroll: true });
   }
   function setErr(form, text, inputs = []) {
     form.querySelector('.form-error').textContent = text;
@@ -130,6 +138,12 @@
 
   fEmail.addEventListener('submit', (e) => {
     e.preventDefault();
+    const n = cleanName(nameIn.value);
+    if (!n || !/\p{L}/u.test(n)) {
+      setErr(fEmail, n ? 'В имени должна быть хотя бы одна буква' : 'Напишите, как к вам обращаться', [nameIn]);
+      nameIn.focus();
+      return;
+    }
     const v = emailIn.value.trim();
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v)) {
       setErr(fEmail, v ? 'Похоже, в почте ошибка. Пример: you@mail.ru' : 'Введите почту', [emailIn]);
@@ -137,6 +151,7 @@
       return;
     }
     pendingEmail = v.toLowerCase();
+    pendingName = n;
     setErr(fEmail, '');
     $('.sent-to', fCode).textContent = pendingEmail;
     fEmail.hidden = true; fCode.hidden = false;
@@ -178,6 +193,7 @@
     // демо: подходит любой код
     const old = load();
     S = old && old.email === pendingEmail ? old : demo(pendingEmail);
+    S.name = pendingName;                         // имя можно поменять при каждом входе
     save();
     showDash();
     toast('Вы вошли в кабинет');
@@ -192,7 +208,7 @@
     toast('Вы вышли из кабинета');
   });
   $('.js-reset').addEventListener('click', () => {
-    S = demo(S.email); save(); render(true);
+    const keepName = S.name; S = demo(S.email); S.name = keepName; save(); render(true);
     window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
     toast('Демо-данные сброшены');
   });
@@ -204,9 +220,10 @@
     S.loggedOut = false; save();
     auth.hidden = true; dash.hidden = false;
     const u = $('.user'); u.hidden = false;
+    $('.user-name', u).textContent = nameOf(S);
     $('.user-email', u).textContent = S.email;
-    $('.avatar', u).textContent = S.email[0];
-    $('.hello').textContent = 'Здравствуйте, ' + S.email.split('@')[0] + '!';
+    $('.avatar', u).textContent = nameOf(S)[0].toUpperCase();
+    $('.hello').textContent = 'Здравствуйте, ' + nameOf(S) + '!';
     render(true);
   }
 

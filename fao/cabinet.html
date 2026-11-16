@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="cabinet.css?v=202611161307">
+<link rel="stylesheet" href="cabinet.css?v=202611161319">
 </head>
 <body>
 
@@ -40,7 +40,7 @@
       </a>
       <div class="user" hidden>
         <span class="avatar" aria-hidden="true"></span>
-        <span class="user-email"></span>
+        <span class="user-who"><b class="user-name"></b><span class="user-email"></span></span>
         <button type="button" class="btn btn-ghost btn-sm js-logout">Выйти</button>
       </div>
     </div>
@@ -60,7 +60,11 @@
     <!-- шаг 1: почта -->
     <form class="auth-step" id="step-email" novalidate>
       <h1>Вход в кабинет</h1>
-      <p class="muted">Введите почту — пришлём код для входа. Пароль не нужен.</p>
+      <p class="muted">Введите имя и почту — пришлём код для входа. Пароль не нужен.</p>
+      <label class="field">
+        <span>Как вас называть?</span>
+        <input type="text" name="name" autocomplete="given-name" placeholder="Например, Егор" maxlength="30" required>
+      </label>
       <label class="field">
         <span>Почта</span>
         <input type="email" name="email" autocomplete="email" inputmode="email" placeholder="you@mail.ru" required>
@@ -265,6 +269,6 @@
 
 <div class="toast" role="status" aria-live="polite"></div>
 
-<script src="cabinet.js?v=202611161307"></script>
+<script src="cabinet.js?v=202611161319"></script>
 </body>
 </html>

@@ -64,7 +64,9 @@ h1, h2, h3 { letter-spacing: -0.025em; line-height: 1.15; }
 .link-back:hover { color: var(--text); }
 .user { display: flex; align-items: center; gap: 10px; }
 .avatar { width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; background: var(--grad); color: #fff; font-weight: 700; font-size: 14px; text-transform: uppercase; }
-.user-email { font-size: 14px; font-weight: 500; max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.user-who { display: flex; flex-direction: column; line-height: 1.25; min-width: 0; }
+.user-name { font-size: 14px; font-weight: 700; max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.user-email { font-size: 12.5px; font-weight: 500; color: var(--muted); max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
 /* ----- вход ----- */
 .auth { min-height: calc(100vh - 68px); display: grid; place-items: center; padding: 40px 16px; position: relative; overflow: hidden; }
@@ -240,6 +242,7 @@ h1, h2, h3 { letter-spacing: -0.025em; line-height: 1.15; }
   .wrap { width: calc(100% - 32px); }
   .top-inner { height: 60px; }
   .user-email, .link-back span { display: none; }
+  .user-name { max-width: 110px; }
   .link-back { font-size: 0; }
   .link-back svg { width: 22px; height: 22px; }
   .dash { padding: 26px 0 50px; }
@@ -299,3 +302,4 @@ h1, h2, h3 { letter-spacing: -0.025em; line-height: 1.15; }
 .ref-drawer-in { overflow: hidden; min-height: 0; }
 @media (prefers-reduced-motion: reduce) { .ref-drawer, .ref-toggle svg { transition: none; } }
 .card-dev .js-add-dev { margin-top: auto; }
+.field + .field { margin-top: 10px; }
